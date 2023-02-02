@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  agenda-postgres:
+    image: postgres:11.5
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=admin123
+    ports:
+      - '5432:5432'
