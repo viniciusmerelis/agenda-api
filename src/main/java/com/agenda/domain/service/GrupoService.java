@@ -1,5 +1,7 @@
 package com.agenda.domain.service;
 
+import com.agenda.domain.exception.EntidadeEmUsoException;
+import com.agenda.domain.exception.GrupoNaoEncontradoException;
 import com.agenda.domain.model.Grupo;
 import com.agenda.domain.model.Permissao;
 import com.agenda.domain.repository.GrupoRepository;
@@ -19,7 +21,7 @@ public class GrupoService {
 
     public Grupo obterPorId(Long id) {
         return grupoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Grupo não encontrado."));
+                .orElseThrow(() -> new GrupoNaoEncontradoException(id));
     }
 
     public Grupo salvar(Grupo grupo) {
@@ -31,10 +33,10 @@ public class GrupoService {
             grupoRepository.deleteById(id);
             grupoRepository.flush();
         } catch (EmptyResultDataAccessException e) {
-            throw new RuntimeException("Grupo não encontrado.");
+            throw new GrupoNaoEncontradoException(id);
 
         } catch (DataIntegrityViolationException e) {
-            throw new RuntimeException(String.format(MSG_GRUPO_EM_USO, id));
+            throw new EntidadeEmUsoException(String.format(MSG_GRUPO_EM_USO, id));
         }
     }
 
