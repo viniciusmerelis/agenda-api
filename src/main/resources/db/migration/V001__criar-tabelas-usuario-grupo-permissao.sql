@@ -2,11 +2,13 @@ CREATE SEQUENCE seq_usuario INCREMENT 1 START 1;
 
 CREATE TABLE usuario
 (
-    id       INTEGER DEFAULT nextval('seq_usuario') NOT NULL,
-    nome     VARCHAR(100)                           NOT NULL,
-    telefone VARCHAR(11)                            NOT NULL UNIQUE,
-    email    VARCHAR(255)                           NOT NULL UNIQUE,
-    senha    VARCHAR(100)                           NOT NULL,
+    id               BIGINT DEFAULT nextval('seq_usuario') NOT NULL,
+    nome             VARCHAR(100)                           NOT NULL,
+    telefone         VARCHAR(11)                            NOT NULL UNIQUE,
+    email            VARCHAR(255)                           NOT NULL UNIQUE,
+    senha            VARCHAR(100)                           NOT NULL,
+    data_cadastro    TIMESTAMP                              NOT NULL,
+    data_atualizacao TIMESTAMP,
     PRIMARY KEY (id)
 );
 
@@ -14,7 +16,7 @@ CREATE SEQUENCE seq_grupo INCREMENT 1 START 1;
 
 CREATE TABLE grupo
 (
-    id   INTEGER DEFAULT nextval('seq_grupo') NOT NULL,
+    id   BIGINT DEFAULT nextval('seq_grupo') NOT NULL,
     nome VARCHAR(100)                         NOT NULL,
     PRIMARY KEY (id)
 );
@@ -23,7 +25,7 @@ CREATE SEQUENCE seq_permissao INCREMENT 1 START 1;
 
 CREATE TABLE permissao
 (
-    id        INTEGER DEFAULT nextval('seq_permissao') NOT NULL,
+    id        BIGINT DEFAULT nextval('seq_permissao') NOT NULL,
     nome      VARCHAR(100)                             NOT NULL,
     descricao VARCHAR(10)                              NOT NULL,
     PRIMARY KEY (id)
@@ -31,8 +33,8 @@ CREATE TABLE permissao
 
 CREATE TABLE grupo_permissao
 (
-    grupo_id     INTEGER NOT NULL,
-    permissao_id INTEGER NOT NULL,
+    grupo_id     BIGINT NOT NULL,
+    permissao_id BIGINT NOT NULL,
     PRIMARY KEY (grupo_id, permissao_id)
 );
 
@@ -46,8 +48,8 @@ ALTER TABLE grupo_permissao
 
 CREATE TABLE usuario_grupo
 (
-    usuario_id INTEGER NOT NULL,
-    grupo_id   INTEGER NOT NULL,
+    usuario_id BIGINT NOT NULL,
+    grupo_id   BIGINT NOT NULL,
     PRIMARY KEY (usuario_id, grupo_id)
 );
 
