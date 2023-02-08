@@ -4,7 +4,7 @@ services:
   agenda-postgres:
     image: postgres:11.5
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
     ports:
       - '5432:5432'

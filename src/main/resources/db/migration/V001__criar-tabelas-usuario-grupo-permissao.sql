@@ -3,11 +3,11 @@ CREATE SEQUENCE seq_usuario INCREMENT 1 START 1;
 CREATE TABLE usuario
 (
     id               BIGINT DEFAULT nextval('seq_usuario') NOT NULL,
-    nome             VARCHAR(100)                           NOT NULL,
-    telefone         VARCHAR(11)                            NOT NULL UNIQUE,
-    email            VARCHAR(255)                           NOT NULL UNIQUE,
-    senha            VARCHAR(100)                           NOT NULL,
-    data_cadastro    TIMESTAMP                              NOT NULL,
+    nome             VARCHAR(100)                          NOT NULL,
+    telefone         VARCHAR(11)                           NOT NULL UNIQUE,
+    email            VARCHAR(255)                          NOT NULL UNIQUE,
+    senha            VARCHAR(100)                          NOT NULL,
+    data_cadastro    TIMESTAMP                             NOT NULL,
     data_atualizacao TIMESTAMP,
     PRIMARY KEY (id)
 );
@@ -17,17 +17,15 @@ CREATE SEQUENCE seq_grupo INCREMENT 1 START 1;
 CREATE TABLE grupo
 (
     id   BIGINT DEFAULT nextval('seq_grupo') NOT NULL,
-    nome VARCHAR(100)                         NOT NULL,
+    nome VARCHAR(100)                        NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE SEQUENCE seq_permissao INCREMENT 1 START 1;
-
 CREATE TABLE permissao
 (
-    id        BIGINT DEFAULT nextval('seq_permissao') NOT NULL,
-    nome      VARCHAR(100)                             NOT NULL,
-    descricao VARCHAR(10)                              NOT NULL,
+    id        BIGINT       NOT NULL,
+    nome      VARCHAR(100) NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 

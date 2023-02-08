@@ -27,7 +27,6 @@ public class Grupo {
     @EqualsAndHashCode.Include
     @SequenceGenerator(name = "seq_grupo", sequenceName = "seq_grupo", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_grupo")
-    @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false)
