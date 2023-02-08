@@ -30,7 +30,6 @@ public class Usuario {
     @EqualsAndHashCode.Include
     @SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
-    @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false)
