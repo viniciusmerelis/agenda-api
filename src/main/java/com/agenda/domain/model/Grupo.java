@@ -2,6 +2,7 @@ package com.agenda.domain.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,6 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,16 +34,16 @@ public class Grupo {
     @Column(nullable = false)
     private String nome;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "grupo_permissao", joinColumns = @JoinColumn(name = "grupo_id"),
         inverseJoinColumns = @JoinColumn(name = "permissao_id"))
     private Set<Permissao> permissoes = new HashSet<>();
 
-    public void adicionarPermissao(Permissao permissao) {
-        getPermissoes().add(permissao);
+    public void adicionarPermissoes(List<Permissao> permissoes) {
+        getPermissoes().addAll(permissoes);
     }
 
-    public void removerPermissao(Permissao permissao) {
-        getPermissoes().remove(permissao);
+    public void removerPermissao(List<Permissao> permissoes) {
+        getPermissoes().remove(permissoes);
     }
 }

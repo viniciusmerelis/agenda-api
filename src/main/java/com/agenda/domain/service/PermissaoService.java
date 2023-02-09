@@ -19,6 +19,10 @@ public class PermissaoService {
         return permissaoRepository.findAll();
     }
 
+    public List<Permissao> listarPorIds(List<Long> ids) {
+        return permissaoRepository.findAllById(ids);
+    }
+
     public Permissao obterPorId(Long id) {
         return permissaoRepository.findById(id)
                 .orElseThrow(() -> new PermissaoNaoEncontradaException(id));
