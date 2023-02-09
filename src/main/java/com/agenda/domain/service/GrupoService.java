@@ -6,10 +6,13 @@ import com.agenda.domain.model.Grupo;
 import com.agenda.domain.model.Permissao;
 import com.agenda.domain.repository.GrupoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -19,6 +22,10 @@ public class GrupoService {
     private final GrupoRepository grupoRepository;
     private final PermissaoService permissaoService;
 
+    public List<Grupo> listar() {
+        return grupoRepository.findAll();
+    }
+
     public Grupo obterPorId(Long id) {
         return grupoRepository.findById(id)
                 .orElseThrow(() -> new GrupoNaoEncontradoException(id));
@@ -26,6 +33,12 @@ public class GrupoService {
 
     public Grupo salvar(Grupo grupo) {
         return grupoRepository.save(grupo);
+    }
+
+    public Grupo atualizar(Long id, Grupo grupo) {
+        Grupo grupoAtual = obterPorId(id);
+        BeanUtils.copyProperties(grupo, grupoAtual, "id");
+        return grupoAtual;
     }
 
     public void excluir(Long id) {
@@ -40,15 +53,15 @@ public class GrupoService {
         }
     }
 
-    public void associarPermissao(Long grupoId, Long permissaoId) {
+    public void associarPermissao(Long grupoId, List<Long> permissoesIds) {
         Grupo grupo = obterPorId(grupoId);
-        Permissao permissao = permissaoService.obterPorId(permissaoId);
-        grupo.adicionarPermissao(permissao);
+        List<Permissao> permissoes = permissaoService.listarPorIds(permissoesIds);
+        grupo.adicionarPermissoes(permissoes);
     }
 
-    public void desassociarPermissao(Long grupoId, Long permissaoId) {
+    public void desassociarPermissao(Long grupoId, List<Long> permissoesIds) {
         Grupo grupo = obterPorId(grupoId);
-        Permissao permissao = permissaoService.obterPorId(permissaoId);
-        grupo.removerPermissao(permissao);
+        List<Permissao> permissoes = permissaoService.listarPorIds(permissoesIds);
+        grupo.removerPermissao(permissoes);
     }
 }
