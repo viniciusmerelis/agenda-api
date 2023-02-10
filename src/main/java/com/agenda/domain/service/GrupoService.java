@@ -26,6 +26,10 @@ public class GrupoService {
         return grupoRepository.findAll();
     }
 
+    public List<Grupo> listarPorIds(List<Long> ids) {
+        return grupoRepository.findAllById(ids);
+    }
+
     public Grupo obterPorId(Long id) {
         return grupoRepository.findById(id)
                 .orElseThrow(() -> new GrupoNaoEncontradoException(id));
