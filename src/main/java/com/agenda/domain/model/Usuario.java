@@ -19,6 +19,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.OffsetDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -57,4 +58,12 @@ public class Usuario {
     @JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "usuario_id"),
         inverseJoinColumns = @JoinColumn(name = "grupo_id"))
     private Set<Grupo> grupos = new HashSet<>();
+
+    public void adicionarGrupos(List<Grupo> grupos) {
+        this.getGrupos().addAll(grupos);
+    }
+
+    public void removerGrupos(List<Grupo> grupos) {
+        this.getGrupos().removeAll(grupos);
+    }
 }

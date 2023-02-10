@@ -40,10 +40,10 @@ public class Grupo {
     private Set<Permissao> permissoes = new HashSet<>();
 
     public void adicionarPermissoes(List<Permissao> permissoes) {
-        getPermissoes().addAll(permissoes);
+        this.getPermissoes().addAll(permissoes);
     }
 
     public void removerPermissao(List<Permissao> permissoes) {
-        getPermissoes().remove(permissoes);
+        this.getPermissoes().remove(permissoes);
     }
 }
