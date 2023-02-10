@@ -37,7 +37,7 @@ public class GrupoService {
 
     public Grupo atualizar(Long id, Grupo grupo) {
         Grupo grupoAtual = obterPorId(id);
-        BeanUtils.copyProperties(grupo, grupoAtual, "id");
+        BeanUtils.copyProperties(grupo, grupoAtual, "id", "permissoes");
         return grupoAtual;
     }
 

@@ -1,3 +1,4 @@
+DELETE FROM grupo_permissao;
 DELETE FROM grupo;
 DELETE FROM permissao;
 
