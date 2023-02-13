@@ -4,11 +4,11 @@ CREATE TABLE agendamento
 (
     id                     BIGINT DEFAULT nextval('seq_agendamento') NOT NULL,
     horario                TIMESTAMP                                 NOT NULL,
-    usuario_cliente_id     BIGINT                                    NOT NULL,
+    cliente_id             BIGINT                                    NOT NULL,
     usuario_colaborador_id BIGINT                                    NOT NULL,
     data_criacao           TIMESTAMP                                 NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_usuario_cliente_id FOREIGN KEY (usuario_cliente_id) REFERENCES usuario (id),
+    CONSTRAINT fk_cliente_id FOREIGN KEY (cliente_id) REFERENCES cliente (id),
     CONSTRAINT fk_usuario_colaborador_id FOREIGN KEY (usuario_colaborador_id) REFERENCES usuario (id)
 );
 
@@ -17,7 +17,7 @@ CREATE SEQUENCE seq_atendimento INCREMENT 1 START 1;
 CREATE TABLE atendimento
 (
     id             BIGINT DEFAULT nextval('seq_atendimento') NOT NULL,
-    agendamento_id BIGINT                                    NOT NULL UNIQUE,
+    agendamento_id BIGINT,
     valor_total    NUMERIC(5, 2)                             NOT NULL,
     data_criacao   TIMESTAMP                                 NOT NULL,
     PRIMARY KEY (id),
