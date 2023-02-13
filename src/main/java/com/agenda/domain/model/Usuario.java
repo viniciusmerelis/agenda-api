@@ -17,6 +17,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -48,15 +49,15 @@ public class Usuario {
 
     @CreationTimestamp
     @Column(name = "data_cadastro", nullable = false)
-    private OffsetDateTime dataCadastro;
+    private LocalDateTime dataCadastro;
 
     @UpdateTimestamp
     @Column(name = "data_atualizacao", nullable = false)
-    private OffsetDateTime dataAtualizacao;
+    private LocalDateTime dataAtualizacao;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "usuario_id"),
-        inverseJoinColumns = @JoinColumn(name = "grupo_id"))
+            inverseJoinColumns = @JoinColumn(name = "grupo_id"))
     private Set<Grupo> grupos = new HashSet<>();
 
     public void adicionarGrupos(List<Grupo> grupos) {
