@@ -24,7 +24,7 @@ public class UsuarioService {
         return usuarioRepository.listarPorGrupo(grupoId);
     }
 
-    public Usuario obterPorId(Long id) {
+    public Usuario buscar(Long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new UsuarioNaoEncontradoException(id));
     }
@@ -38,13 +38,13 @@ public class UsuarioService {
     }
 
     public void associarGrupos(Long usuarioId, List<Long> gruposIds) {
-        Usuario usuario = obterPorId(usuarioId);
+        Usuario usuario = buscar(usuarioId);
         List<Grupo> grupos = grupoService.listarPorIds(gruposIds);
         usuario.adicionarGrupos(grupos);
     }
 
     public void desassociarGrupos(Long usuarioId, List<Long> gruposIds) {
-        Usuario usuario = obterPorId(usuarioId);
+        Usuario usuario = buscar(usuarioId);
         List<Grupo> grupos = grupoService.listarPorIds(gruposIds);
         usuario.removerGrupos(grupos);
     }

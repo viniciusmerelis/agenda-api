@@ -29,7 +29,7 @@ public class GrupoPermissaoController {
 
     @GetMapping
     public List<PermissaoDTO> listar(@PathVariable Long grupoId) {
-        Grupo grupo = grupoService.obterPorId(grupoId);
+        Grupo grupo = grupoService.buscar(grupoId);
         return permissaoMapper.toDto((List<Permissao>) grupo.getPermissoes());
     }
 

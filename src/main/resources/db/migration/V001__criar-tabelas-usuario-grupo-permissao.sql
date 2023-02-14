@@ -4,7 +4,7 @@ CREATE TABLE cliente
 (
     id       BIGINT DEFAULT nextval('seq_cliente') NOT NULL,
     nome     VARCHAR(150)                          NOT NULL,
-    telefone VARCHAR(11),
+    telefone VARCHAR(11)                           NOT NULL UNIQUE,
     PRIMARY KEY (id)
 );
 

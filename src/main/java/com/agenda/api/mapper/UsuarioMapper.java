@@ -9,5 +9,5 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UsuarioMapper {
     UsuarioDTO toDto(Usuario entity);
-    List<UsuarioDTO> toDto(List<Usuario> entitys);
+    List<UsuarioDTO> toDto(List<Usuario> entities);
 }
