@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface GrupoMapper {
     GrupoDTO toDto(Grupo entity);
-    List<GrupoDTO> toDto(List<Grupo> entitys);
+    List<GrupoDTO> toDto(List<Grupo> entities);
     @Mapping(target = "id", ignore = true)
     Grupo toEntity(GrupoInputDTO input);
 }

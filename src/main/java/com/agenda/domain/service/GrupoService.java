@@ -30,7 +30,7 @@ public class GrupoService {
         return grupoRepository.findAllById(ids);
     }
 
-    public Grupo obterPorId(Long id) {
+    public Grupo buscar(Long id) {
         return grupoRepository.findById(id)
                 .orElseThrow(() -> new GrupoNaoEncontradoException(id));
     }
@@ -40,7 +40,7 @@ public class GrupoService {
     }
 
     public Grupo atualizar(Long id, Grupo grupo) {
-        Grupo grupoAtual = obterPorId(id);
+        Grupo grupoAtual = buscar(id);
         BeanUtils.copyProperties(grupo, grupoAtual, "id", "permissoes");
         return grupoAtual;
     }
@@ -58,13 +58,13 @@ public class GrupoService {
     }
 
     public void associarPermissao(Long grupoId, List<Long> permissoesIds) {
-        Grupo grupo = obterPorId(grupoId);
+        Grupo grupo = buscar(grupoId);
         List<Permissao> permissoes = permissaoService.listarPorIds(permissoesIds);
         grupo.adicionarPermissoes(permissoes);
     }
 
     public void desassociarPermissao(Long grupoId, List<Long> permissoesIds) {
-        Grupo grupo = obterPorId(grupoId);
+        Grupo grupo = buscar(grupoId);
         List<Permissao> permissoes = permissaoService.listarPorIds(permissoesIds);
         grupo.removerPermissao(permissoes);
     }

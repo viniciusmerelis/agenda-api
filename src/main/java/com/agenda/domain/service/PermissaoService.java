@@ -23,7 +23,7 @@ public class PermissaoService {
         return permissaoRepository.findAllById(ids);
     }
 
-    public Permissao obterPorId(Long id) {
+    public Permissao buscar(Long id) {
         return permissaoRepository.findById(id)
                 .orElseThrow(() -> new PermissaoNaoEncontradaException(id));
     }

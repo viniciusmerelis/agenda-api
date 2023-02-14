@@ -25,6 +25,6 @@ public class PermissaoController {
 
     @GetMapping("/{id}")
     public PermissaoDTO obterPorId(@PathVariable Long id) {
-        return mapper.toDto(service.obterPorId(id));
+        return mapper.toDto(service.buscar(id));
     }
 }
