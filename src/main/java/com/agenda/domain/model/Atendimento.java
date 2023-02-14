@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -33,6 +34,14 @@ public class Atendimento {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agendamento_id")
     private Agendamento agendamento;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_colaborador_id", nullable = false)
+    private Usuario colaborador;
 
     @Column(name = "valor_total", nullable = false)
     private BigDecimal valorTotal;
