@@ -33,12 +33,15 @@ public class Agendamento {
     private LocalDateTime horario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_cliente_id", nullable = false)
-    private Usuario cliente;
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Cliente cliente;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_colaborador_id", nullable = false)
     private Usuario colaborador;
+
+    @Column(nullable = false)
+    private String servico;
 
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false)
