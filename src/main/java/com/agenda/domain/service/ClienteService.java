@@ -25,6 +25,10 @@ public class ClienteService {
                 .orElseThrow(() -> new ClienteNaoEncontradoException(id));
     }
 
+    public Cliente buscarReferencia(Long id) {
+        return repository.getReferenceById(id);
+    }
+
     public void salvar(Cliente cliente) {
         repository.save(cliente);
     }
