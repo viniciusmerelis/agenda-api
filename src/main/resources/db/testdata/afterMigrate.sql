@@ -3,10 +3,10 @@ DELETE FROM usuario_grupo;
 DELETE FROM atendimento_servico_prestado;
 DELETE FROM grupo;
 DELETE FROM permissao;
-DELETE FROM usuario;
 DELETE FROM agendamento;
 DELETE FROM atendimento;
 DELETE FROM servico_prestado;
+DELETE FROM usuario;
 DELETE FROM cliente;
 
 ALTER SEQUENCE seq_grupo RESTART;
@@ -53,3 +53,9 @@ INSERT INTO usuario_grupo(usuario_id, grupo_id) VALUES (2, 3);
 INSERT INTO usuario_grupo(usuario_id, grupo_id) VALUES (3, 3);
 INSERT INTO usuario_grupo(usuario_id, grupo_id) VALUES (4, 2);
 INSERT INTO usuario_grupo(usuario_id, grupo_id) VALUES (5, 1);
+
+INSERT INTO cliente(id, nome, telefone) VALUES (nextval('seq_cliente'), 'Sueli', '27971266910');
+INSERT INTO cliente(id, nome, telefone) VALUES (nextval('seq_cliente'), 'Jaqueline', '27947663161');
+INSERT INTO cliente(id, nome, telefone) VALUES (nextval('seq_cliente'), 'Fátima', '27929977391');
+INSERT INTO cliente(id, nome, telefone) VALUES (nextval('seq_cliente'), 'Heloise', '27980665683');
+INSERT INTO cliente(id, nome, telefone) VALUES (nextval('seq_cliente'), 'Marina', '27987232312');
