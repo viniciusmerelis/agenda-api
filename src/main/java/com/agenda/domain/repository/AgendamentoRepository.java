@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> {
     @Query("from Agendamento a join fetch a.cliente join fetch a.colaborador " +
             "where a.colaborador.id = :colaboradorId and extract(month from a.horario) = :mes")
-    List<Agendamento> listarPorColaboradorEMes(@Param("colaboradorId") Long colaboradorId, @Param("mes") Long mes);
+    List<Agendamento> listarPorColaboradorEMes(@Param("colaboradorId") Long colaboradorId, @Param("mes") int mes);
 
     @Query("from Agendamento a join fetch a.cliente join fetch a.colaborador where a.id = :id")
     Optional<Agendamento> buscarPorId(@Param("id") Long id);

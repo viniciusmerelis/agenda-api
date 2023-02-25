@@ -11,5 +11,5 @@ public class ColaboradorMesInputDTO {
     private Long colaboradorId;
 
     @NotNull
-    private Long mes;
+    private int mes;
 }

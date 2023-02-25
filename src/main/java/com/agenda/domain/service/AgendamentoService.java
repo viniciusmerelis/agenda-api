@@ -24,7 +24,7 @@ public class AgendamentoService {
     private final ClienteService clienteService;
     private final UsuarioService usuarioService;
 
-    public List<Agendamento> listar(Long colaboradorId, Long mes) {
+    public List<Agendamento> listar(Long colaboradorId, int mes) {
         return agendamentoRepository.listarPorColaboradorEMes(colaboradorId, mes);
     }
 
