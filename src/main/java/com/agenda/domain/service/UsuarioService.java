@@ -28,10 +28,6 @@ public class UsuarioService {
         return usuarioRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException(id));
     }
 
-    public Usuario buscarReferencia(Long id) {
-        return usuarioRepository.getReferenceById(id);
-    }
-
     public Usuario salvar(Usuario usuario) {
         Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
         if (usuarioExistente.isPresent() && usuarioExistente.get().equals(usuario)) {

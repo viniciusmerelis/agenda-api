@@ -34,8 +34,8 @@ public class AgendamentoService {
     }
 
     public Agendamento salvar(Agendamento agendamento) {
-        Cliente cliente = clienteService.buscarReferencia(agendamento.getCliente().getId());
-        Usuario colaborador = usuarioService.buscarReferencia(agendamento.getColaborador().getId());
+        Cliente cliente = clienteService.buscar(agendamento.getCliente().getId());
+        Usuario colaborador = usuarioService.buscar(agendamento.getColaborador().getId());
         agendamento.setCliente(cliente);
         agendamento.setColaborador(colaborador);
         return agendamentoRepository.save(agendamento);
@@ -43,8 +43,8 @@ public class AgendamentoService {
 
     public Agendamento atualizar(Long id, Agendamento agendamento) {
         Agendamento agendamentoAtual = buscar(id);
-        Cliente cliente = clienteService.buscarReferencia(agendamento.getCliente().getId());
-        Usuario colaborador = usuarioService.buscarReferencia(agendamento.getColaborador().getId());
+        Cliente cliente = clienteService.buscar(agendamento.getCliente().getId());
+        Usuario colaborador = usuarioService.buscar(agendamento.getColaborador().getId());
         agendamento.setCliente(cliente);
         agendamento.setColaborador(colaborador);
         BeanUtils.copyProperties(agendamento, agendamentoAtual, "id", "dataCriacao");
