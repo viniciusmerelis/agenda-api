@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class AgendamentoInputDTO {
+public class AgendamentoInput {
     @NotNull
     private LocalDateTime horario;
 
