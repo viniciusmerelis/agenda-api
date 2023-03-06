@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class GrupoInputDTO {
+public class ServicoPrestadoInput {
     @NotBlank
     private String nome;
 }

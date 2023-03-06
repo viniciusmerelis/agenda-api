@@ -1,7 +1,7 @@
 package com.agenda.api.mapper;
 
 import com.agenda.api.model.AgendamentoDTO;
-import com.agenda.api.model.input.AgendamentoInputDTO;
+import com.agenda.api.model.input.AgendamentoInput;
 import com.agenda.domain.model.Agendamento;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,5 +16,5 @@ public interface AgendamentoMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "clienteId", target = "cliente.id")
     @Mapping(source = "colaboradorId", target = "colaborador.id")
-    Agendamento toEntity(AgendamentoInputDTO input);
+    Agendamento toEntity(AgendamentoInput input);
 }

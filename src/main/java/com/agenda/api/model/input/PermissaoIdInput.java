@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class PermissaoIdInputDTO {
+public class PermissaoIdInput {
     @NotNull
     private List<Long> permissoesIds = new ArrayList<>();
 }

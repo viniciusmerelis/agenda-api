@@ -2,7 +2,7 @@ package com.agenda.api.controller;
 
 import com.agenda.api.mapper.PermissaoMapper;
 import com.agenda.api.model.PermissaoDTO;
-import com.agenda.api.model.input.PermissaoIdInputDTO;
+import com.agenda.api.model.input.PermissaoIdInput;
 import com.agenda.domain.model.Grupo;
 import com.agenda.domain.model.Permissao;
 import com.agenda.domain.service.GrupoService;
@@ -35,13 +35,13 @@ public class GrupoPermissaoController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void associar(@RequestBody @Valid PermissaoIdInputDTO input, @PathVariable Long grupoId) {
+    public void associar(@RequestBody @Valid PermissaoIdInput input, @PathVariable Long grupoId) {
         grupoService.associarPermissao(grupoId, input.getPermissoesIds());
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void desassociar(@RequestBody @Valid PermissaoIdInputDTO input, @PathVariable Long grupoId) {
+    public void desassociar(@RequestBody @Valid PermissaoIdInput input, @PathVariable Long grupoId) {
         grupoService.desassociarPermissao(grupoId, input.getPermissoesIds());
     }
 }

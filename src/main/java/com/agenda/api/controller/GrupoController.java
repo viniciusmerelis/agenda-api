@@ -2,7 +2,7 @@ package com.agenda.api.controller;
 
 import com.agenda.api.mapper.GrupoMapper;
 import com.agenda.api.model.GrupoDTO;
-import com.agenda.api.model.input.GrupoInputDTO;
+import com.agenda.api.model.input.GrupoInput;
 import com.agenda.domain.model.Grupo;
 import com.agenda.domain.service.GrupoService;
 import jakarta.validation.Valid;
@@ -39,13 +39,13 @@ public class GrupoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public GrupoDTO salvar(@RequestBody @Valid GrupoInputDTO input) {
+    public GrupoDTO salvar(@RequestBody @Valid GrupoInput input) {
         Grupo novoGrupo = mapper.toEntity(input);
         return mapper.toDto(service.salvar(novoGrupo));
     }
 
     @PutMapping("/{id}")
-    public GrupoDTO atualizar(@PathVariable Long id, @RequestBody @Valid GrupoInputDTO input) {
+    public GrupoDTO atualizar(@PathVariable Long id, @RequestBody @Valid GrupoInput input) {
         Grupo grupo = mapper.toEntity(input);
         return mapper.toDto(service.atualizar(id, grupo));
     }
