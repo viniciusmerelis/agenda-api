@@ -3,7 +3,6 @@ package com.agenda.api.controller;
 import com.agenda.api.mapper.AgendamentoMapper;
 import com.agenda.api.model.AgendamentoDTO;
 import com.agenda.api.model.input.AgendamentoInput;
-import com.agenda.api.model.input.ColaboradorMesInput;
 import com.agenda.domain.model.Agendamento;
 import com.agenda.domain.service.AgendamentoService;
 import jakarta.validation.Valid;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,8 +29,8 @@ public class AgendamentoController {
     private final AgendamentoMapper mapper;
 
     @GetMapping
-    public List<AgendamentoDTO> listar(@RequestBody @Valid ColaboradorMesInput input) {
-        return mapper.toDto(service.listar(input.getColaboradorId(), input.getMes()));
+    public List<AgendamentoDTO> listar(@RequestParam Long colaboradorId, @RequestParam int mes) {
+        return mapper.toDto(service.listar(colaboradorId, mes));
     }
 
     @GetMapping("/{id}")
