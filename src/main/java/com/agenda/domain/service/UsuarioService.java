@@ -20,8 +20,8 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final GrupoService grupoService;
 
-    public List<Usuario> listarPorGrupo(Long grupoId) {
-        return usuarioRepository.listarPorGrupo(grupoId);
+    public List<Usuario> listar() {
+        return usuarioRepository.findAll();
     }
 
     public Usuario buscar(Long id) {

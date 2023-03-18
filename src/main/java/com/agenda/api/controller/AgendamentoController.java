@@ -29,8 +29,8 @@ public class AgendamentoController {
     private final AgendamentoMapper mapper;
 
     @GetMapping
-    public List<AgendamentoDTO> listar(@RequestParam Long colaboradorId, @RequestParam int mes) {
-        return mapper.toDto(service.listar(colaboradorId, mes));
+    public List<AgendamentoDTO> listar(@RequestParam Long colaboradorId) {
+        return mapper.toDto(service.listarPorColaborador(colaboradorId));
     }
 
     @GetMapping("/{id}")

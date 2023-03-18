@@ -17,4 +17,7 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> 
 
     @Query("from Agendamento a join fetch a.cliente join fetch a.colaborador where a.id = :id")
     Optional<Agendamento> buscarPorId(@Param("id") Long id);
+
+    @Query("from Agendamento a join fetch a.cliente join fetch a.colaborador where a.colaborador.id = :colaboradorId")
+    List<Agendamento> listarPorColaborador(@Param("colaboradorId") Long colaboradorId);
 }
