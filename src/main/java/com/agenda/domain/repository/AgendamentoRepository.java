@@ -1,5 +1,6 @@
 package com.agenda.domain.repository;
 
+import com.agenda.api.model.AgendamentoEvento;
 import com.agenda.domain.model.Agendamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +19,8 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> 
     @Query("from Agendamento a join fetch a.cliente join fetch a.colaborador where a.id = :id")
     Optional<Agendamento> buscarPorId(@Param("id") Long id);
 
-    @Query("from Agendamento a join fetch a.cliente join fetch a.colaborador where a.colaborador.id = :colaboradorId")
-    List<Agendamento> listarPorColaborador(@Param("colaboradorId") Long colaboradorId);
+    @Query(value = "select a.id, concat(c.nome, ' - ', a.servico) as title, a.horario as date from Agendamento a " +
+            "inner join Cliente c on a.cliente_id = c.id " +
+            "where a.usuario_colaborador_id = :colaboradorId", nativeQuery = true)
+    List<AgendamentoEvento> listarEventoPorColaborador(@Param("colaboradorId") Long colaboradorId);
 }

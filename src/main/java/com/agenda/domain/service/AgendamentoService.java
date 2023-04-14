@@ -1,5 +1,6 @@
 package com.agenda.domain.service;
 
+import com.agenda.api.model.AgendamentoEvento;
 import com.agenda.domain.exception.AgendamentoNaoEncontradoException;
 import com.agenda.domain.exception.EntidadeEmUsoException;
 import com.agenda.domain.model.Agendamento;
@@ -24,8 +25,8 @@ public class AgendamentoService {
     private final ClienteService clienteService;
     private final UsuarioService usuarioService;
 
-    public List<Agendamento> listarPorColaborador(Long colaboradorId) {
-        return agendamentoRepository.listarPorColaborador(colaboradorId);
+    public List<AgendamentoEvento> listarEventoPorColaborador(Long colaboradorId) {
+        return agendamentoRepository.listarEventoPorColaborador(colaboradorId);
     }
 
     public Agendamento buscar(Long id) {
