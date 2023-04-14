@@ -2,6 +2,7 @@ package com.agenda.api.controller;
 
 import com.agenda.api.mapper.AgendamentoMapper;
 import com.agenda.api.model.AgendamentoDTO;
+import com.agenda.api.model.AgendamentoEvento;
 import com.agenda.api.model.input.AgendamentoInput;
 import com.agenda.domain.model.Agendamento;
 import com.agenda.domain.service.AgendamentoService;
@@ -29,8 +30,8 @@ public class AgendamentoController {
     private final AgendamentoMapper mapper;
 
     @GetMapping
-    public List<AgendamentoDTO> listar(@RequestParam Long colaboradorId) {
-        return mapper.toDto(service.listarPorColaborador(colaboradorId));
+    public List<AgendamentoEvento> listarEventoPorColaborador(@RequestParam Long colaboradorId) {
+        return service.listarEventoPorColaborador(colaboradorId);
     }
 
     @GetMapping("/{id}")
