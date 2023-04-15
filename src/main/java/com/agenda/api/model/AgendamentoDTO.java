@@ -12,5 +12,5 @@ public class AgendamentoDTO {
     private LocalDateTime horario;
     private ClienteDTO cliente;
     private UsuarioDTO colaborador;
-    private String servico;
+    private ServicoPrestadoDTO servicoPrestado;
 }

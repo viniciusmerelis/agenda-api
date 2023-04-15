@@ -1,3 +1,12 @@
+CREATE SEQUENCE seq_servico_prestado START 1 INCREMENT 1;
+
+CREATE TABLE servico_prestado
+(
+    id   BIGINT DEFAULT nextval('seq_servico_prestado') NOT NULL,
+    nome VARCHAR(255)                                   NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE SEQUENCE seq_agendamento INCREMENT 1 START 1;
 
 CREATE TABLE agendamento
@@ -6,11 +15,12 @@ CREATE TABLE agendamento
     horario                TIMESTAMP                                 NOT NULL,
     cliente_id             BIGINT                                    NOT NULL,
     usuario_colaborador_id BIGINT                                    NOT NULL,
-    servico                VARCHAR(255)                              NOT NULL,
+    servico_prestado_id    BIGINT                                    NOT NULL,
     data_criacao           TIMESTAMP                                 NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_cliente_id FOREIGN KEY (cliente_id) REFERENCES cliente (id),
-    CONSTRAINT fk_usuario_colaborador_id FOREIGN KEY (usuario_colaborador_id) REFERENCES usuario (id)
+    CONSTRAINT fk_usuario_colaborador_id FOREIGN KEY (usuario_colaborador_id) REFERENCES usuario (id),
+    CONSTRAINT fk_servico_prestado_id FOREIGN KEY (servico_prestado_id) REFERENCES servico_prestado (id)
 );
 
 CREATE SEQUENCE seq_atendimento INCREMENT 1 START 1;
@@ -27,15 +37,6 @@ CREATE TABLE atendimento
     CONSTRAINT fk_atendimento_cliente_id FOREIGN KEY (cliente_id) REFERENCES cliente (id),
     CONSTRAINT fk_atendimento_usuario_colaborador_id FOREIGN KEY (usuario_colaborador_id) REFERENCES usuario (id),
     CONSTRAINT fk_agendamento_id FOREIGN KEY (agendamento_id) REFERENCES agendamento (id)
-);
-
-CREATE SEQUENCE seq_servico_prestado START 1 INCREMENT 1;
-
-CREATE TABLE servico_prestado
-(
-    id   BIGINT DEFAULT nextval('seq_servico_prestado') NOT NULL,
-    nome VARCHAR(255)                                   NOT NULL,
-    PRIMARY KEY (id)
 );
 
 CREATE TABLE atendimento_servico_prestado

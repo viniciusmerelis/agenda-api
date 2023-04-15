@@ -40,8 +40,9 @@ public class Agendamento {
     @JoinColumn(name = "usuario_colaborador_id", nullable = false)
     private Usuario colaborador;
 
-    @Column(nullable = false)
-    private String servico;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "servico_prestado_id", nullable = false)
+    private ServicoPrestado servicoPrestado;
 
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false)
