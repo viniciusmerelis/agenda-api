@@ -16,5 +16,6 @@ public interface AgendamentoMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "clienteId", target = "cliente.id")
     @Mapping(source = "colaboradorId", target = "colaborador.id")
+    @Mapping(source = "servicoPrestadoId", target = "servicoPrestado.id")
     Agendamento toEntity(AgendamentoInput input);
 }

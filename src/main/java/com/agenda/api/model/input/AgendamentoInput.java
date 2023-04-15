@@ -20,5 +20,5 @@ public class AgendamentoInput {
     private Long colaboradorId;
 
     @NotBlank
-    private String servico;
+    private Long servicoPrestadoId;
 }

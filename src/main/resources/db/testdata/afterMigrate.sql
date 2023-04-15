@@ -8,6 +8,7 @@ DELETE FROM atendimento;
 DELETE FROM servico_prestado;
 DELETE FROM usuario;
 DELETE FROM cliente;
+DELETE FROM servico_prestado;
 
 ALTER SEQUENCE seq_grupo RESTART;
 ALTER SEQUENCE seq_usuario RESTART;
@@ -15,6 +16,7 @@ ALTER SEQUENCE seq_agendamento RESTART;
 ALTER SEQUENCE seq_atendimento RESTART;
 ALTER SEQUENCE seq_servico_prestado RESTART;
 ALTER SEQUENCE seq_cliente RESTART;
+ALTER SEQUENCE seq_servico_prestado RESTART;
 
 INSERT INTO grupo(id, nome) VALUES (nextval('seq_grupo'), 'Administrador');
 INSERT INTO grupo(id, nome) VALUES (nextval('seq_grupo'), 'Secretária');
@@ -56,8 +58,14 @@ INSERT INTO cliente(id, nome, telefone) VALUES (nextval('seq_cliente'), 'Fátima
 INSERT INTO cliente(id, nome, telefone) VALUES (nextval('seq_cliente'), 'Heloise', '27980665683');
 INSERT INTO cliente(id, nome, telefone) VALUES (nextval('seq_cliente'), 'Marina', '27987232312');
 
-INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-20T08:00:00', 1, 1, 'Manutenção', '2023-03-15T11:00:00');
-INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-20T10:30:00', 2, 1, 'Aplicação', '2023-03-15T12:00:00');
-INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-21T09:00:00', 3, 1, 'Corte de cabelo', '2023-03-16T08:45:00');
-INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-22T09:15:00', 4, 1, 'Manutenção', '2023-03-17T11:00:00');
-INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-23T08:00:00', 5, 1, 'Manutenção', '2023-03-18T10:04:00');
+INSERT INTO servico_prestado(id, nome) VALUES (nextval('seq_servico_prestado'), 'Aplicação');
+INSERT INTO servico_prestado(id, nome) VALUES (nextval('seq_servico_prestado'), 'Manutenção');
+INSERT INTO servico_prestado(id, nome) VALUES (nextval('seq_servico_prestado'), 'Conserto');
+INSERT INTO servico_prestado(id, nome) VALUES (nextval('seq_servico_prestado'), 'Corte de cabelo');
+INSERT INTO servico_prestado(id, nome) VALUES (nextval('seq_servico_prestado'), 'Corte de barba');
+
+INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico_prestado_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-20T08:00:00', 1, 1, 1, '2023-03-15T11:00:00');
+INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico_prestado_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-20T10:30:00', 2, 1, 2, '2023-03-15T12:00:00');
+INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico_prestado_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-21T09:00:00', 3, 1, 3, '2023-03-16T08:45:00');
+INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico_prestado_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-22T09:15:00', 4, 1, 4, '2023-03-17T11:00:00');
+INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico_prestado_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-23T08:00:00', 5, 1, 5, '2023-03-18T10:04:00');

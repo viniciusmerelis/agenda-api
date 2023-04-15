@@ -5,6 +5,7 @@ import com.agenda.domain.exception.AgendamentoNaoEncontradoException;
 import com.agenda.domain.exception.EntidadeEmUsoException;
 import com.agenda.domain.model.Agendamento;
 import com.agenda.domain.model.Cliente;
+import com.agenda.domain.model.ServicoPrestado;
 import com.agenda.domain.model.Usuario;
 import com.agenda.domain.repository.AgendamentoRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class AgendamentoService {
     private final AgendamentoRepository agendamentoRepository;
     private final ClienteService clienteService;
     private final UsuarioService usuarioService;
+    private final ServicoPrestadoService servicoPrestadoService;
 
     public List<AgendamentoEvento> listarEventoPorColaborador(Long colaboradorId) {
         return agendamentoRepository.listarEventoPorColaborador(colaboradorId);
@@ -37,8 +39,10 @@ public class AgendamentoService {
     public Agendamento salvar(Agendamento agendamento) {
         Cliente cliente = clienteService.buscar(agendamento.getCliente().getId());
         Usuario colaborador = usuarioService.buscar(agendamento.getColaborador().getId());
+        ServicoPrestado servicoPrestado = servicoPrestadoService.buscar(agendamento.getServicoPrestado().getId());
         agendamento.setCliente(cliente);
         agendamento.setColaborador(colaborador);
+        agendamento.setServicoPrestado(servicoPrestado);
         return agendamentoRepository.save(agendamento);
     }
 
@@ -46,8 +50,10 @@ public class AgendamentoService {
         Agendamento agendamentoAtual = buscar(id);
         Cliente cliente = clienteService.buscar(agendamento.getCliente().getId());
         Usuario colaborador = usuarioService.buscar(agendamento.getColaborador().getId());
+        ServicoPrestado servicoPrestado = servicoPrestadoService.buscar(agendamento.getServicoPrestado().getId());
         agendamento.setCliente(cliente);
         agendamento.setColaborador(colaborador);
+        agendamento.setServicoPrestado(servicoPrestado);
         BeanUtils.copyProperties(agendamento, agendamentoAtual, "id", "dataCriacao");
         return agendamentoAtual;
     }
