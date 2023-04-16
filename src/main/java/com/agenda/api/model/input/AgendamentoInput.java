@@ -19,6 +19,6 @@ public class AgendamentoInput {
     @NotNull
     private Long colaboradorId;
 
-    @NotBlank
+    @NotNull
     private Long servicoPrestadoId;
 }

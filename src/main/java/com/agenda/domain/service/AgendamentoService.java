@@ -37,25 +37,24 @@ public class AgendamentoService {
     }
 
     public Agendamento salvar(Agendamento agendamento) {
-        Cliente cliente = clienteService.buscar(agendamento.getCliente().getId());
-        Usuario colaborador = usuarioService.buscar(agendamento.getColaborador().getId());
-        ServicoPrestado servicoPrestado = servicoPrestadoService.buscar(agendamento.getServicoPrestado().getId());
-        agendamento.setCliente(cliente);
-        agendamento.setColaborador(colaborador);
-        agendamento.setServicoPrestado(servicoPrestado);
+        atribuirEntidadesRelacionadas(agendamento);
         return agendamentoRepository.save(agendamento);
     }
 
     public Agendamento atualizar(Long id, Agendamento agendamento) {
         Agendamento agendamentoAtual = buscar(id);
+        atribuirEntidadesRelacionadas(agendamento);
+        BeanUtils.copyProperties(agendamento, agendamentoAtual, "id", "dataCriacao");
+        return agendamentoAtual;
+    }
+
+    private void atribuirEntidadesRelacionadas(Agendamento agendamento) {
         Cliente cliente = clienteService.buscar(agendamento.getCliente().getId());
         Usuario colaborador = usuarioService.buscar(agendamento.getColaborador().getId());
         ServicoPrestado servicoPrestado = servicoPrestadoService.buscar(agendamento.getServicoPrestado().getId());
         agendamento.setCliente(cliente);
         agendamento.setColaborador(colaborador);
         agendamento.setServicoPrestado(servicoPrestado);
-        BeanUtils.copyProperties(agendamento, agendamentoAtual, "id", "dataCriacao");
-        return agendamentoAtual;
     }
 
     public void excluir(Long id) {
