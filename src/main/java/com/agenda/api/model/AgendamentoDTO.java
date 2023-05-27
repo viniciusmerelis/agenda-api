@@ -3,13 +3,13 @@ package com.agenda.api.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 public class AgendamentoDTO {
     private Long id;
-    private LocalDateTime horario;
+    private OffsetDateTime horario;
     private ClienteDTO cliente;
     private UsuarioDTO colaborador;
     private ServicoPrestadoDTO servicoPrestado;

@@ -16,6 +16,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "agendamento")
@@ -30,7 +31,7 @@ public class Agendamento {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime horario;
+    private OffsetDateTime horario;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
