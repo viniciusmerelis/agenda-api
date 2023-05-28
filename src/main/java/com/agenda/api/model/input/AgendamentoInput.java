@@ -4,13 +4,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 public class AgendamentoInput {
     @NotNull
-    private LocalDateTime horario;
+    private OffsetDateTime horario;
 
     @NotNull
     private Long clienteId;
