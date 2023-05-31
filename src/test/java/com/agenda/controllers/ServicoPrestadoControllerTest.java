@@ -19,9 +19,9 @@ import static io.restassured.RestAssured.given;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
-public class ClienteControllerTest {
-    private static final String FILE_BASE_PATH = "src/test/resources/payloads/cliente";
-    private static final String BASE_URI = "/api/clientes";
+public class ServicoPrestadoControllerTest {
+    private static final String FILE_BASE_PATH = "src/test/resources/payloads/servico-prestado";
+    private static final String BASE_URI = "/api/servicos-prestados";
 
     @Container
     public static PostgreSQLContainer container = new PostgreSQLContainer("postgres:11.5")
@@ -48,7 +48,7 @@ public class ClienteControllerTest {
     }
 
     @Test
-    void retornaStatus200_quandoListarClientes() {
+    void retornaStatus200_quandoListarServicosPrestados() {
         given()
              .contentType(ContentType.JSON)
              .when()
@@ -58,7 +58,7 @@ public class ClienteControllerTest {
     }
 
     @Test
-    void retornaStatus200_quandoObterClientePorId() {
+    void retornaStatus200_quandoObterServicosPrestadosPorId() {
         given()
              .contentType(ContentType.JSON)
              .pathParam("id", 1)
@@ -69,8 +69,8 @@ public class ClienteControllerTest {
     }
 
     @Test
-    void retornarStatus201_quandoCriarCliente() {
-        File json = new File(FILE_BASE_PATH + "/ClienteInput-Create.json");
+    void retornarStatus201_quandoCriarServicosPrestados() {
+        File json = new File(FILE_BASE_PATH + "/ServicoPrestadoInput-Create.json");
         given()
              .contentType(ContentType.JSON)
              .body(json)
@@ -81,8 +81,8 @@ public class ClienteControllerTest {
     }
 
     @Test
-    void retornarStatus200_quandoAtualizarCliente() {
-        File json = new File(FILE_BASE_PATH + "/ClienteInput-Update.json");
+    void retornarStatus200_quandoAtualizarServicosPrestados() {
+        File json = new File(FILE_BASE_PATH + "/ServicoPrestadoInput-Update.json");
         given()
              .contentType(ContentType.JSON)
              .pathParam("id", 1)
@@ -94,7 +94,7 @@ public class ClienteControllerTest {
     }
 
     @Test
-    void retornarStatus204_quandoExcluirCliente() {
+    void retornarStatus204_quandoExcluirServicosPrestados() {
         given()
              .contentType(ContentType.JSON)
              .pathParam("id", 6)
