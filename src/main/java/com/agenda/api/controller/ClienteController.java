@@ -7,6 +7,7 @@ import com.agenda.domain.service.ClienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +28,13 @@ public class ClienteController {
     private final ClienteMapper mapper;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     public List<ClienteDTO> listar() {
         return mapper.toDto(service.listar());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ClienteDTO buscar(@PathVariable Long id) {
         return mapper.toDto(service.buscar(id));
     }
