@@ -16,9 +16,8 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> 
     @Query("from Agendamento a join fetch a.cliente join fetch a.colaborador where a.id = :id")
     Optional<Agendamento> buscarPorId(@Param("id") Long id);
 
-    @Query(value = "select a.id, concat(c.nome, ' - ', sp.nome) as title, a.horario as date from agendamento a " +
+    @Query(value = "select a.id, c.nome as title, a.horario as date from agendamento a " +
             "inner join cliente c on a.cliente_id = c.id " +
-            "inner join servico_prestado sp on a.servico_prestado_id = sp.id " +
             "where a.usuario_colaborador_id = :colaboradorId", nativeQuery = true)
     List<AgendamentoEvento> listarEventoPorColaborador(@Param("colaboradorId") Long colaboradorId);
 }

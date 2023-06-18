@@ -5,7 +5,6 @@ import com.agenda.domain.exception.AgendamentoNaoEncontradoException;
 import com.agenda.domain.exception.EntidadeEmUsoException;
 import com.agenda.domain.model.Agendamento;
 import com.agenda.domain.model.Cliente;
-import com.agenda.domain.model.ServicoPrestado;
 import com.agenda.domain.model.Usuario;
 import com.agenda.domain.repository.AgendamentoRepository;
 import lombok.RequiredArgsConstructor;
@@ -51,10 +50,8 @@ public class AgendamentoService {
     private void atribuirEntidadesRelacionadas(Agendamento agendamento) {
         Cliente cliente = clienteService.buscar(agendamento.getCliente().getId());
         Usuario colaborador = usuarioService.buscar(agendamento.getColaborador().getId());
-        ServicoPrestado servicoPrestado = servicoPrestadoService.buscar(agendamento.getServicoPrestado().getId());
         agendamento.setCliente(cliente);
         agendamento.setColaborador(colaborador);
-        agendamento.setServicoPrestado(servicoPrestado);
     }
 
     public void excluir(Long id) {
