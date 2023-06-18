@@ -40,10 +40,6 @@ public class Atendimento {
     private Agendamento agendamento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_colaborador_id", nullable = false)
     private Usuario colaborador;
 

@@ -12,5 +12,4 @@ public class AgendamentoDTO {
     private OffsetDateTime horario;
     private ClienteDTO cliente;
     private UsuarioDTO colaborador;
-    private ServicoPrestadoDTO servicoPrestado;
 }
