@@ -41,10 +41,6 @@ public class Agendamento {
     @JoinColumn(name = "usuario_colaborador_id", nullable = false)
     private Usuario colaborador;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "servico_prestado_id", nullable = false)
-    private ServicoPrestado servicoPrestado;
-
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;

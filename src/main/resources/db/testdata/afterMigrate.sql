@@ -64,8 +64,8 @@ INSERT INTO servico_prestado(id, nome) VALUES (nextval('seq_servico_prestado'), 
 INSERT INTO servico_prestado(id, nome) VALUES (nextval('seq_servico_prestado'), 'Corte de cabelo');
 INSERT INTO servico_prestado(id, nome) VALUES (nextval('seq_servico_prestado'), 'Corte de barba');
 
-INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico_prestado_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-20T08:00:00', 1, 1, 1, '2023-03-15T11:00:00');
-INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico_prestado_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-20T10:30:00', 2, 1, 2, '2023-03-15T12:00:00');
-INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico_prestado_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-21T09:00:00', 3, 1, 3, '2023-03-16T08:45:00');
-INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico_prestado_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-22T09:15:00', 4, 1, 4, '2023-03-17T11:00:00');
-INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, servico_prestado_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-23T08:00:00', 5, 1, 5, '2023-03-18T10:04:00');
+INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-20T08:00:00', 1, 1, '2023-03-15T11:00:00');
+INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-20T10:30:00', 2, 1, '2023-03-15T12:00:00');
+INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-21T09:00:00', 3, 1, '2023-03-16T08:45:00');
+INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-22T09:15:00', 4, 1, '2023-03-17T11:00:00');
+INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-03-23T08:00:00', 5, 1, '2023-03-18T10:04:00');
