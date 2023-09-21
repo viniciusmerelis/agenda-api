@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -41,11 +42,11 @@ public class Agendamento {
     @JoinColumn(name = "usuario_colaborador_id", nullable = false)
     private Usuario colaborador;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "servico_prestado_id", nullable = false)
-    private ServicoPrestado servicoPrestado;
-
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
+
+    @UpdateTimestamp
+    @Column(name = "data_atualizacao")
+    private LocalDateTime dataAtualizacao;
 }

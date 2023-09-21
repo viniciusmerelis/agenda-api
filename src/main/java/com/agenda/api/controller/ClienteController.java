@@ -34,7 +34,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ClienteDTO buscar(@PathVariable Long id) {
         return mapper.toDto(service.buscar(id));
     }

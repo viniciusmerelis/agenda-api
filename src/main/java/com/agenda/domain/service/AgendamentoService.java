@@ -51,10 +51,8 @@ public class AgendamentoService {
     private void atribuirEntidadesRelacionadas(Agendamento agendamento) {
         Cliente cliente = clienteService.buscar(agendamento.getCliente().getId());
         Usuario colaborador = usuarioService.buscar(agendamento.getColaborador().getId());
-        ServicoPrestado servicoPrestado = servicoPrestadoService.buscar(agendamento.getServicoPrestado().getId());
         agendamento.setCliente(cliente);
         agendamento.setColaborador(colaborador);
-        agendamento.setServicoPrestado(servicoPrestado);
     }
 
     public void excluir(Long id) {
