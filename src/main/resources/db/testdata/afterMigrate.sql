@@ -1,6 +1,6 @@
 DELETE FROM atendimento_servico_prestado;
-DELETE FROM agendamento;
 DELETE FROM atendimento;
+DELETE FROM agendamento;
 DELETE FROM servico_prestado;
 DELETE FROM usuario;
 DELETE FROM cliente;
@@ -10,6 +10,7 @@ ALTER SEQUENCE seq_agendamento RESTART;
 ALTER SEQUENCE seq_atendimento RESTART;
 ALTER SEQUENCE seq_servico_prestado RESTART;
 ALTER SEQUENCE seq_cliente RESTART;
+ALTER SEQUENCE seq_atendimento RESTART;
 
 INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro, data_atualizacao)
 VALUES (nextval('seq_usuario'), 'Alice', '27994709408', 'alicerita@colab.com.br', '123', '2023-02-10T00:00:00', null);
@@ -41,3 +42,13 @@ INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, data_cr
 INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-09-23T08:00:00', 5, 1, '2023-09-18T10:04:00');
 INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-09-23T09:15:00', 2, 1, '2023-09-19T08:05:00');
 INSERT INTO agendamento(id, horario, cliente_id, usuario_colaborador_id, data_criacao) VALUES (nextval('seq_agendamento'), '2023-09-23T10:00:00', 1, 1, '2023-09-19T11:25:00');
+
+INSERT INTO atendimento(id, agendamento_id, usuario_colaborador_id, valor_total, data_criacao) VALUES (nextval('seq_atendimento'), 1, 1, 170, '2023-09-23T09:15:00');
+INSERT INTO atendimento(id, agendamento_id, usuario_colaborador_id, valor_total, data_criacao) VALUES (nextval('seq_atendimento'), 2, 1, 110, '2023-09-24T14:12:00');
+INSERT INTO atendimento(id, agendamento_id, usuario_colaborador_id, valor_total, data_criacao) VALUES (nextval('seq_atendimento'), null, 1, 130, '2023-09-24T14:12:00');
+
+INSERT INTO atendimento_servico_prestado(atendimento_id, servico_prestado_id, valor) VALUES (1, 1, 170);
+INSERT INTO atendimento_servico_prestado(atendimento_id, servico_prestado_id, valor) VALUES (1, 3, 50);
+INSERT INTO atendimento_servico_prestado(atendimento_id, servico_prestado_id, valor) VALUES (2, 2, 110);
+INSERT INTO atendimento_servico_prestado(atendimento_id, servico_prestado_id, valor) VALUES (3, 2, 110);
+INSERT INTO atendimento_servico_prestado(atendimento_id, servico_prestado_id, valor) VALUES (3, 1, 20);

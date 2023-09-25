@@ -2,10 +2,9 @@ package com.agenda.domain.model;
 
 import com.agenda.domain.model.pk.AtendimentoServicoId;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -18,16 +17,12 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "atendimento_servico_prestado")
-@IdClass(AtendimentoServicoId.class)
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(of = "id")
 public class AtendimentoServicoValor {
-    @Id
-    private Long atendimentoId;
-
-    @Id
-    private Long servicoPrestadoId;
+    @EmbeddedId
+    private AtendimentoServicoId id;
 
     @MapsId("atendimentoId")
     @ManyToOne(fetch = FetchType.LAZY)
