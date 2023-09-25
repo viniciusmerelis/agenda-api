@@ -5,7 +5,6 @@ import com.agenda.domain.exception.AgendamentoNaoEncontradoException;
 import com.agenda.domain.exception.EntidadeEmUsoException;
 import com.agenda.domain.model.Agendamento;
 import com.agenda.domain.model.Cliente;
-import com.agenda.domain.model.ServicoPrestado;
 import com.agenda.domain.model.Usuario;
 import com.agenda.domain.repository.AgendamentoRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +21,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AgendamentoService {
     private static final String MSG_AGENDAMENTO_EM_USO = "Esse agendamento não pode ser excluirdo, pois está em uso";
+
     private final AgendamentoRepository agendamentoRepository;
     private final ClienteService clienteService;
     private final UsuarioService usuarioService;
-    private final ServicoPrestadoService servicoPrestadoService;
 
     public List<AgendamentoEvento> listarEventoPorColaborador(Long colaboradorId) {
         return agendamentoRepository.listarEventoPorColaborador(colaboradorId);

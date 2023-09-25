@@ -40,10 +40,6 @@ public class Atendimento {
     private Agendamento agendamento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_colaborador_id", nullable = false)
     private Usuario colaborador;
 
@@ -51,7 +47,7 @@ public class Atendimento {
     private BigDecimal valorTotal;
 
     @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AtendimentoServicoValor> servicosEValores = new HashSet<>();
+    private Set<AtendimentoServicoValor> servicosValores = new HashSet<>();
 
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false)
