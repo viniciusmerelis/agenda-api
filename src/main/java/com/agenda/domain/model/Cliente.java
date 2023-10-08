@@ -28,4 +28,13 @@ public class Cliente {
 
     @Column(nullable = false)
     private String telefone;
+
+    public Cliente(String nome, String telefone) {
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
+    public Cliente() {
+
+    }
 }

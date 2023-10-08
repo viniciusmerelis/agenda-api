@@ -1,106 +1,86 @@
 package com.agenda.controllers;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeEach;
+import com.agenda.api.controller.ServicoPrestadoController;
+import com.agenda.api.mapper.ServicoPrestadoMapper;
+import com.agenda.domain.service.ServicoPrestadoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
 
-import java.io.File;
+import java.util.List;
 
-import static io.restassured.RestAssured.given;
+import static com.agenda.common.ServicoPrestadoConstants.SERVICO_PRESTADO;
+import static com.agenda.common.ServicoPrestadoConstants.SERVICO_PRESTADO_DTO;
+import static com.agenda.common.ServicoPrestadoConstants.SERVICO_PRESTADO_INPUT;
+import static com.agenda.common.ServicoPrestadoConstants.SERVICO_PRESTADO_JSON;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Testcontainers
+@WebMvcTest(ServicoPrestadoController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class ServicoPrestadoControllerTest {
-    private static final String FILE_BASE_PATH = "src/test/resources/payloads/servico-prestado";
     private static final String BASE_URI = "/api/servicos-prestados";
 
-    @Container
-    public static PostgreSQLContainer container = new PostgreSQLContainer("postgres:11.5")
-         .withDatabaseName("agenda")
-         .withUsername("postgres")
-         .withPassword("postgres");
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @MockBean
+    private ServicoPrestadoService service;
+    @MockBean
+    private ServicoPrestadoMapper mapper;
 
-    @DynamicPropertySource
-    static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", container::getJdbcUrl);
-        registry.add("spring.datasource.username", container::getUsername);
-        registry.add("spring.datasource.password", container::getPassword);
-        registry.add("spring.flyway.url", container::getJdbcUrl);
-        registry.add("spring.flyway.user", container::getPassword);
-        registry.add("spring.flyway.password", container::getUsername);
-    }
-
-    @LocalServerPort
-    private int port;
-
-    @BeforeEach
-    void setUp() {
-        RestAssured.baseURI = "http://localhost:" + port;
+    @Test
+    void listarServicosPrestados_DeveRetornarStatus200() throws Exception {
+        when(service.listar()).thenReturn(List.of(SERVICO_PRESTADO));
+        when(mapper.toDto(List.of(SERVICO_PRESTADO))).thenReturn(List.of(SERVICO_PRESTADO_DTO));
+        mockMvc.perform(get(BASE_URI))
+             .andExpect(status().isOk());
     }
 
     @Test
-    void retornaStatus200_quandoListarServicosPrestados() {
-        given()
-             .contentType(ContentType.JSON)
-             .when()
-             .get(BASE_URI)
-             .then()
-             .statusCode(200);
+    void obterServicoPrestado_ComIdExistente_RetornarStatus200() throws Exception {
+        when(service.buscar(1L)).thenReturn(SERVICO_PRESTADO);
+        when(mapper.toDto(SERVICO_PRESTADO)).thenReturn(SERVICO_PRESTADO_DTO);
+        mockMvc.perform(get(BASE_URI))
+             .andExpect(status().isOk());
     }
 
     @Test
-    void retornaStatus200_quandoObterServicosPrestadosPorId() {
-        given()
-             .contentType(ContentType.JSON)
-             .pathParam("id", 1)
-             .when()
-             .get(BASE_URI + "/{id}")
-             .then()
-             .statusCode(200);
+    void criarServicoPrestado_ComDadosValidos_RetornarStatus201() throws Exception {
+        when(mapper.toEntity(SERVICO_PRESTADO_INPUT)).thenReturn(SERVICO_PRESTADO);
+        doNothing().when(service).salvar(SERVICO_PRESTADO);
+        mockMvc.perform(post(BASE_URI)
+             .content(objectMapper.writeValueAsString(SERVICO_PRESTADO_JSON))
+             .contentType(APPLICATION_JSON))
+             .andExpect(status().isCreated());
     }
 
     @Test
-    void retornarStatus201_quandoCriarServicosPrestados() {
-        File json = new File(FILE_BASE_PATH + "/ServicoPrestadoInput-Create.json");
-        given()
-             .contentType(ContentType.JSON)
-             .body(json)
-             .when()
-             .post(BASE_URI)
-             .then()
-             .statusCode(HttpStatus.SC_CREATED);
+    void atualizarServicoPrestado_ComDadosValidos_RetornarStatus200() throws Exception {
+        when(mapper.toEntity(SERVICO_PRESTADO_INPUT)).thenReturn(SERVICO_PRESTADO);
+        doNothing().when(service).atualizar(1L, SERVICO_PRESTADO);
+        mockMvc.perform(put(BASE_URI + "/{id}", 1)
+             .content(objectMapper.writeValueAsString(SERVICO_PRESTADO_INPUT))
+             .contentType(APPLICATION_JSON))
+             .andExpect(status().isOk());
     }
 
     @Test
-    void retornarStatus200_quandoAtualizarServicosPrestados() {
-        File json = new File(FILE_BASE_PATH + "/ServicoPrestadoInput-Update.json");
-        given()
-             .contentType(ContentType.JSON)
-             .pathParam("id", 1)
-             .body(json)
-             .when()
-             .put(BASE_URI + "/{id}")
-             .then()
-             .statusCode(HttpStatus.SC_OK);
-    }
-
-    @Test
-    void retornarStatus204_quandoExcluirServicosPrestados() {
-        given()
-             .contentType(ContentType.JSON)
-             .pathParam("id", 6)
-             .when()
-             .delete(BASE_URI + "/{id}")
-             .then()
-             .statusCode(HttpStatus.SC_NO_CONTENT);
+    void excluirServicoPrestado_ComIdExistente_RetornarStatus204() throws Exception {
+        doNothing().when(service).excluir(1L);
+        mockMvc.perform(delete(BASE_URI + "/{id}", 1)
+             .param("id", "1"))
+             .andExpect(status().isNoContent());
     }
 }

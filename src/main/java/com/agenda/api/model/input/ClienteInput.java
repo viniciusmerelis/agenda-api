@@ -14,4 +14,12 @@ public class ClienteInput {
     @NotBlank
     @Size(min = 11, max = 11)
     private String telefone;
+
+    public ClienteInput(String nome, String telefone) {
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
+    public ClienteInput() {
+    }
 }

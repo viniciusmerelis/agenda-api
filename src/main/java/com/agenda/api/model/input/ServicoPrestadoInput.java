@@ -9,4 +9,11 @@ import lombok.Setter;
 public class ServicoPrestadoInput {
     @NotBlank
     private String nome;
+
+    public ServicoPrestadoInput(String nome) {
+        this.nome = nome;
+    }
+
+    public ServicoPrestadoInput() {
+    }
 }
