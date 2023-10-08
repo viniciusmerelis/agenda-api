@@ -23,4 +23,11 @@ public class ServicoPrestado {
     private Long id;
 
     private String nome;
+
+    public ServicoPrestado(String nome) {
+        this.nome = nome;
+    }
+
+    public ServicoPrestado() {
+    }
 }

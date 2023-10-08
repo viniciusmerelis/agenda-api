@@ -1,27 +1,51 @@
 package com.agenda.controllers;
 
-import io.restassured.RestAssured;
+import com.agenda.api.controller.ClienteController;
+import com.agenda.api.mapper.ClienteMapper;
+import com.agenda.domain.service.ClienteService;
 import io.restassured.http.ContentType;
-import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.io.File;
+import java.util.List;
 
-import static io.restassured.RestAssured.given;
+import static com.agenda.common.ClienteConstants.CLIENTE;
+import static com.agenda.common.ClienteConstants.CLIENTE_DTO;
+import static com.agenda.common.ClienteConstants.CLIENTE_INPUT;
+import static com.agenda.common.ClienteConstants.CLIENTE_JSON;
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.mockMvc;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@WebMvcTest(ClienteController.class)
+@AutoConfigureMockMvc(addFilters = false)
 @Testcontainers
 public class ClienteControllerTest {
-    private static final String FILE_BASE_PATH = "src/test/resources/payloads/cliente";
     private static final String BASE_URI = "/api/clientes";
+
+    @Autowired
+    private MockMvc mockMvc;
+    @MockBean
+    private ClienteService service;
+    @MockBean
+    private ClienteMapper mapper;
+
+    @BeforeEach
+    void setUp() {
+        mockMvc(mockMvc);
+    }
 
     @Container
     public static PostgreSQLContainer container = new PostgreSQLContainer("postgres:11.5")
@@ -39,68 +63,63 @@ public class ClienteControllerTest {
         registry.add("spring.flyway.password", container::getUsername);
     }
 
-    @LocalServerPort
-    private int port;
-
-    @BeforeEach
-    void setUp() {
-        RestAssured.baseURI = "http://localhost:" + port;
-    }
-
     @Test
-    void retornaStatus200_quandoListarClientes() {
+    public void listarClientes_DeveRetornarStatus200() {
+        when(service.listar()).thenReturn(List.of(CLIENTE));
+        when(mapper.toDto(List.of(CLIENTE))).thenReturn(List.of(CLIENTE_DTO));
         given()
-             .contentType(ContentType.JSON)
-             .when()
+         .when()
              .get(BASE_URI)
-             .then()
+         .then()
+             .statusCode(200)
+             .body("$.size()", equalTo(1));
+    }
+
+    @Test
+    void obterCliente_QuandoExistirId_RetornarStatus200() {
+        when(service.buscar(1L)).thenReturn(CLIENTE);
+        when(mapper.toDto(CLIENTE)).thenReturn(CLIENTE_DTO);
+        given()
+             .param("id", 1)
+        .when()
+             .get(BASE_URI)
+        .then()
              .statusCode(200);
     }
 
     @Test
-    void retornaStatus200_quandoObterClientePorId() {
+    void criarCliente_ComDadosValidos_RetornarStatus201() {
+        when(mapper.toEntity(CLIENTE_INPUT)).thenReturn(CLIENTE);
+        doNothing().when(service).salvar(CLIENTE);
         given()
              .contentType(ContentType.JSON)
-             .pathParam("id", 1)
-             .when()
-             .get(BASE_URI + "/{id}")
-             .then()
-             .statusCode(200);
-    }
-
-    @Test
-    void retornarStatus201_quandoCriarCliente() {
-        File json = new File(FILE_BASE_PATH + "/ClienteInput-Create.json");
-        given()
-             .contentType(ContentType.JSON)
-             .body(json)
-             .when()
+             .body(CLIENTE_JSON)
+        .when()
              .post(BASE_URI)
-             .then()
-             .statusCode(HttpStatus.SC_CREATED);
+        .then()
+             .statusCode(201);
     }
 
     @Test
-    void retornarStatus200_quandoAtualizarCliente() {
-        File json = new File(FILE_BASE_PATH + "/ClienteInput-Update.json");
+    void atualizarCliente_ComDadosValidos_RetornarStatus200() {
+        when(mapper.toEntity(CLIENTE_INPUT)).thenReturn(CLIENTE);
+        doNothing().when(service).atualizar(1L, CLIENTE);
         given()
              .contentType(ContentType.JSON)
-             .pathParam("id", 1)
-             .body(json)
-             .when()
-             .put(BASE_URI + "/{id}")
-             .then()
-             .statusCode(HttpStatus.SC_OK);
+             .body(CLIENTE_JSON)
+        .when()
+             .put(BASE_URI + "/1")
+        .then()
+             .statusCode(200);
     }
 
     @Test
-    void retornarStatus204_quandoExcluirCliente() {
+    void excluirCliente_ComIdExistente_RetornarStatus204() {
+        doNothing().when(service).excluir(1L);
         given()
-             .contentType(ContentType.JSON)
-             .pathParam("id", 6)
-             .when()
-             .delete(BASE_URI + "/{id}")
-             .then()
-             .statusCode(HttpStatus.SC_NO_CONTENT);
+        .when()
+             .delete(BASE_URI + "/1")
+        .then()
+             .statusCode(204);
     }
 }
