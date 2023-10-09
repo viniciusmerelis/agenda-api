@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @WebMvcTest(ServicoPrestadoController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -45,15 +46,19 @@ public class ServicoPrestadoControllerTest {
         when(service.listar()).thenReturn(List.of(SERVICO_PRESTADO));
         when(mapper.toDto(List.of(SERVICO_PRESTADO))).thenReturn(List.of(SERVICO_PRESTADO_DTO));
         mockMvc.perform(get(BASE_URI))
-             .andExpect(status().isOk());
+             .andExpect(status().isOk())
+             .andExpect(jsonPath("[0].id").value(SERVICO_PRESTADO_DTO.getId()))
+             .andExpect(jsonPath("[0].nome").value(SERVICO_PRESTADO_DTO.getNome()));
     }
 
     @Test
     void obterServicoPrestado_ComIdExistente_RetornarStatus200() throws Exception {
         when(service.buscar(1L)).thenReturn(SERVICO_PRESTADO);
         when(mapper.toDto(SERVICO_PRESTADO)).thenReturn(SERVICO_PRESTADO_DTO);
-        mockMvc.perform(get(BASE_URI))
-             .andExpect(status().isOk());
+        mockMvc.perform(get(BASE_URI + "/{id}", 1))
+             .andExpect(status().isOk())
+             .andExpect(jsonPath("id").value(SERVICO_PRESTADO_DTO.getId()))
+             .andExpect(jsonPath("nome").value(SERVICO_PRESTADO_DTO.getNome()));
     }
 
     @Test
@@ -79,8 +84,7 @@ public class ServicoPrestadoControllerTest {
     @Test
     void excluirServicoPrestado_ComIdExistente_RetornarStatus204() throws Exception {
         doNothing().when(service).excluir(1L);
-        mockMvc.perform(delete(BASE_URI + "/{id}", 1)
-             .param("id", "1"))
+        mockMvc.perform(delete(BASE_URI + "/{id}", 1))
              .andExpect(status().isNoContent());
     }
 }
