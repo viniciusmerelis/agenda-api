@@ -25,9 +25,10 @@ import static com.agenda.common.ClienteConstants.CLIENTE_INPUT;
 import static com.agenda.common.ClienteConstants.CLIENTE_JSON;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.mockMvc;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @WebMvcTest(ClienteController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -72,7 +73,10 @@ public class ClienteControllerTest {
              .get(BASE_URI)
          .then()
              .statusCode(200)
-             .body("$.size()", equalTo(1));
+             .body("$", hasSize(1))
+             .assertThat(jsonPath("[0].id").value(CLIENTE_DTO.getId()))
+             .assertThat(jsonPath("[0].nome").value(CLIENTE_DTO.getNome()))
+             .assertThat(jsonPath("[0].telefone").value(CLIENTE_DTO.getTelefone()));
     }
 
     @Test
@@ -80,11 +84,13 @@ public class ClienteControllerTest {
         when(service.buscar(1L)).thenReturn(CLIENTE);
         when(mapper.toDto(CLIENTE)).thenReturn(CLIENTE_DTO);
         given()
-             .param("id", 1)
         .when()
-             .get(BASE_URI)
+             .get(BASE_URI + "/{id}", 1)
         .then()
-             .statusCode(200);
+             .statusCode(200)
+             .assertThat(jsonPath("id").value(CLIENTE_DTO.getId()))
+             .assertThat(jsonPath("nome").value(CLIENTE_DTO.getNome()))
+             .assertThat(jsonPath("telefone").value(CLIENTE_DTO.getTelefone()));
     }
 
     @Test
@@ -108,7 +114,7 @@ public class ClienteControllerTest {
              .contentType(ContentType.JSON)
              .body(CLIENTE_JSON)
         .when()
-             .put(BASE_URI + "/1")
+             .put(BASE_URI + "/{id}", 1)
         .then()
              .statusCode(200);
     }
@@ -118,7 +124,7 @@ public class ClienteControllerTest {
         doNothing().when(service).excluir(1L);
         given()
         .when()
-             .delete(BASE_URI + "/1")
+             .delete(BASE_URI + "/{id}", 1)
         .then()
              .statusCode(204);
     }
