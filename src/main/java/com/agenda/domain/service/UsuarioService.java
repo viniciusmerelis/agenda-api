@@ -22,11 +22,11 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Usuario buscar(Long id) {
+    public Usuario consultar(Long id) {
         return usuarioRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException(id));
     }
 
-    public Usuario salvar(Usuario usuario) {
+    public Usuario incluir(Usuario usuario) {
         Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
         if (usuarioExistente.isPresent() && usuarioExistente.get().equals(usuario)) {
             throw new NegocioException(String.format(USUARIO_JA_EXISTENTE, usuario.getEmail()));

@@ -24,17 +24,17 @@ public class ClienteService {
         return repository.findAll();
     }
 
-    public Cliente buscar(Long id) {
+    public Cliente consultar(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ClienteNaoEncontradoException(id));
     }
 
-    public void salvar(Cliente cliente) {
+    public void incluir(Cliente cliente) {
         repository.save(cliente);
     }
 
     public void atualizar(Long id, Cliente cliente) {
-        Cliente clienteAtual = buscar(id);
+        Cliente clienteAtual = consultar(id);
         BeanUtils.copyProperties(cliente, clienteAtual, "id");
     }
 

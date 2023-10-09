@@ -25,6 +25,6 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public UsuarioDTO buscar(@PathVariable Long id) {
-        return mapper.toDto(service.buscar(id));
+        return mapper.toDto(service.consultar(id));
     }
 }

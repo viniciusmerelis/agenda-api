@@ -36,13 +36,13 @@ public class AgendamentoController {
 
     @GetMapping("/{id}")
     public AgendamentoDTO buscar(@PathVariable Long id) {
-        return mapper.toDto(service.buscar(id));
+        return mapper.toDto(service.consultar(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AgendamentoDTO salvar(@RequestBody @Valid AgendamentoInput input) {
-        Agendamento agendamento = service.salvar(mapper.toEntity(input));
+        Agendamento agendamento = service.incluir(mapper.toEntity(input));
         return mapper.toDto(agendamento);
     }
 

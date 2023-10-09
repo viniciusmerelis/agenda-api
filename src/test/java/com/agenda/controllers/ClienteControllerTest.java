@@ -4,8 +4,10 @@ import com.agenda.api.controller.ClienteController;
 import com.agenda.api.mapper.ClienteMapper;
 import com.agenda.domain.service.ClienteService;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -32,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ClienteController.class)
 @AutoConfigureMockMvc(addFilters = false)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Testcontainers
 public class ClienteControllerTest {
     private static final String BASE_URI = "/api/clientes";
@@ -43,9 +46,15 @@ public class ClienteControllerTest {
     @MockBean
     private ClienteMapper mapper;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    public void beforeAll() {
         mockMvc(mockMvc);
+        container.start();
+    }
+
+    @AfterAll
+    public void afterAll() {
+        container.stop();
     }
 
     @Container
@@ -81,7 +90,7 @@ public class ClienteControllerTest {
 
     @Test
     void obterCliente_QuandoExistirId_RetornarStatus200() {
-        when(service.buscar(1L)).thenReturn(CLIENTE);
+        when(service.consultar(1L)).thenReturn(CLIENTE);
         when(mapper.toDto(CLIENTE)).thenReturn(CLIENTE_DTO);
         given()
         .when()
@@ -96,7 +105,7 @@ public class ClienteControllerTest {
     @Test
     void criarCliente_ComDadosValidos_RetornarStatus201() {
         when(mapper.toEntity(CLIENTE_INPUT)).thenReturn(CLIENTE);
-        doNothing().when(service).salvar(CLIENTE);
+        doNothing().when(service).incluir(CLIENTE);
         given()
              .contentType(ContentType.JSON)
              .body(CLIENTE_JSON)

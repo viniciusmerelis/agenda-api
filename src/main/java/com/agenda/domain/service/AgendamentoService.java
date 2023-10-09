@@ -30,26 +30,26 @@ public class AgendamentoService {
         return agendamentoRepository.listarEventoPorColaborador(colaboradorId);
     }
 
-    public Agendamento buscar(Long id) {
+    public Agendamento consultar(Long id) {
         return agendamentoRepository.buscarPorId(id)
                 .orElseThrow(() -> new AgendamentoNaoEncontradoException(id));
     }
 
-    public Agendamento salvar(Agendamento agendamento) {
+    public Agendamento incluir(Agendamento agendamento) {
         atribuirEntidadesRelacionadas(agendamento);
         return agendamentoRepository.save(agendamento);
     }
 
     public Agendamento atualizar(Long id, Agendamento agendamento) {
-        Agendamento agendamentoAtual = buscar(id);
+        Agendamento agendamentoAtual = consultar(id);
         atribuirEntidadesRelacionadas(agendamento);
         BeanUtils.copyProperties(agendamento, agendamentoAtual, "id", "dataCriacao");
         return agendamentoAtual;
     }
 
     private void atribuirEntidadesRelacionadas(Agendamento agendamento) {
-        Cliente cliente = clienteService.buscar(agendamento.getCliente().getId());
-        Usuario colaborador = usuarioService.buscar(agendamento.getColaborador().getId());
+        Cliente cliente = clienteService.consultar(agendamento.getCliente().getId());
+        Usuario colaborador = usuarioService.consultar(agendamento.getColaborador().getId());
         agendamento.setCliente(cliente);
         agendamento.setColaborador(colaborador);
     }

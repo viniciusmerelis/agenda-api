@@ -20,17 +20,17 @@ public class ServicoPrestadoService {
         return repository.findAll();
     }
 
-    public ServicoPrestado buscar(Long id) {
+    public ServicoPrestado consultar(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ServicoPrestadoNaoEncontradoException(id));
     }
 
-    public void salvar(ServicoPrestado servicoPrestado) {
+    public void incluir(ServicoPrestado servicoPrestado) {
         repository.save(servicoPrestado);
     }
 
     public void atualizar(Long id, ServicoPrestado servicoPrestado) {
-        ServicoPrestado servicoPrestadoAtual = buscar(id);
+        ServicoPrestado servicoPrestadoAtual = consultar(id);
         BeanUtils.copyProperties(servicoPrestado, servicoPrestadoAtual, "id");
     }
 

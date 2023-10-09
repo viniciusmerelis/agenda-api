@@ -21,7 +21,7 @@ public class AtendimentoService {
         return atendimentoRepository.findAll();
     }
 
-    public Atendimento buscar(Long id) {
+    public Atendimento consultar(Long id) {
         return atendimentoRepository.findById(id)
              .orElseThrow(() -> new AtendimentoNaoEncontradoException(id));
     }
