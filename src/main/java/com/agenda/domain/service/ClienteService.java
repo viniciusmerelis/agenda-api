@@ -13,28 +13,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.agenda.domain.util.Mensagens.MSG_CLIENTE_EM_USO;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class ClienteService {
-    private static final String MSG_CLIENTE_EM_USO = "Esse cliente não pode ser excluirdo, pois está em uso";
+
     private final ClienteRepository repository;
 
     public List<Cliente> listar() {
         return repository.findAll();
     }
 
-    public Cliente buscar(Long id) {
+    public Cliente consultar(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ClienteNaoEncontradoException(id));
     }
 
-    public void salvar(Cliente cliente) {
+    public void incluir(Cliente cliente) {
         repository.save(cliente);
     }
 
     public void atualizar(Long id, Cliente cliente) {
-        Cliente clienteAtual = buscar(id);
+        Cliente clienteAtual = consultar(id);
         BeanUtils.copyProperties(cliente, clienteAtual, "id");
     }
 

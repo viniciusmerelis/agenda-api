@@ -1,4 +1,4 @@
-package com.agenda.controllers;
+package com.agenda.controller;
 
 import com.agenda.api.controller.ServicoPrestadoController;
 import com.agenda.api.mapper.ServicoPrestadoMapper;
@@ -53,7 +53,7 @@ public class ServicoPrestadoControllerTest {
 
     @Test
     void obterServicoPrestado_ComIdExistente_RetornarStatus200() throws Exception {
-        when(service.buscar(1L)).thenReturn(SERVICO_PRESTADO);
+        when(service.consultar(1L)).thenReturn(SERVICO_PRESTADO);
         when(mapper.toDto(SERVICO_PRESTADO)).thenReturn(SERVICO_PRESTADO_DTO);
         mockMvc.perform(get(BASE_URI + "/{id}", 1))
              .andExpect(status().isOk())
@@ -64,7 +64,7 @@ public class ServicoPrestadoControllerTest {
     @Test
     void criarServicoPrestado_ComDadosValidos_RetornarStatus201() throws Exception {
         when(mapper.toEntity(SERVICO_PRESTADO_INPUT)).thenReturn(SERVICO_PRESTADO);
-        doNothing().when(service).salvar(SERVICO_PRESTADO);
+        doNothing().when(service).incluir(SERVICO_PRESTADO);
         mockMvc.perform(post(BASE_URI)
              .content(objectMapper.writeValueAsString(SERVICO_PRESTADO_JSON))
              .contentType(APPLICATION_JSON))

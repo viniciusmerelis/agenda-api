@@ -13,6 +13,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class AtendimentoService {
+
     private final AtendimentoRepository atendimentoRepository;
     private final AgendamentoService agendamentoService;
     private final UsuarioService usuarioService;
@@ -21,7 +22,7 @@ public class AtendimentoService {
         return atendimentoRepository.findAll();
     }
 
-    public Atendimento buscar(Long id) {
+    public Atendimento consultar(Long id) {
         return atendimentoRepository.findById(id)
              .orElseThrow(() -> new AtendimentoNaoEncontradoException(id));
     }

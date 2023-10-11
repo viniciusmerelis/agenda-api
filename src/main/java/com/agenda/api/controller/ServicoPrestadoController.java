@@ -33,13 +33,13 @@ public class ServicoPrestadoController {
 
     @GetMapping("/{id}")
     public ServicoPrestadoDTO buscar(@PathVariable Long id) {
-        return mapper.toDto(service.buscar(id));
+        return mapper.toDto(service.consultar(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void salvar(@RequestBody @Valid ServicoPrestadoInput input) {
-        service.salvar(mapper.toEntity(input));
+        service.incluir(mapper.toEntity(input));
     }
 
     @PutMapping("/{id}")
