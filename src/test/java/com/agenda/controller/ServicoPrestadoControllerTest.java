@@ -1,4 +1,4 @@
-package com.agenda.controllers;
+package com.agenda.controller;
 
 import com.agenda.api.controller.ServicoPrestadoController;
 import com.agenda.api.mapper.ServicoPrestadoMapper;

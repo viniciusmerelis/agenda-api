@@ -14,6 +14,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class ServicoPrestadoService {
+
     private final ServicoPrestadoRepository repository;
 
     public List<ServicoPrestado> listar() {

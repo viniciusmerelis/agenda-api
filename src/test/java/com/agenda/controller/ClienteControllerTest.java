@@ -1,4 +1,4 @@
-package com.agenda.controllers;
+package com.agenda.controller;
 
 import com.agenda.api.controller.ClienteController;
 import com.agenda.api.mapper.ClienteMapper;

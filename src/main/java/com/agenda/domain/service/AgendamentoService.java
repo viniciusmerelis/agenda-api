@@ -16,11 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.agenda.domain.util.Mensagens.MSG_AGENDAMENTO_EM_USO;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class AgendamentoService {
-    private static final String MSG_AGENDAMENTO_EM_USO = "Esse agendamento não pode ser excluirdo, pois está em uso";
 
     private final AgendamentoRepository agendamentoRepository;
     private final ClienteService clienteService;

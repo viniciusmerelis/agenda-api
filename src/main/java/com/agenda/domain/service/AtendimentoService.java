@@ -13,6 +13,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class AtendimentoService {
+
     private final AtendimentoRepository atendimentoRepository;
     private final AgendamentoService agendamentoService;
     private final UsuarioService usuarioService;

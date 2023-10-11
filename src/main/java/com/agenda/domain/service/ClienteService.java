@@ -13,11 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.agenda.domain.util.Mensagens.MSG_CLIENTE_EM_USO;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class ClienteService {
-    private static final String MSG_CLIENTE_EM_USO = "Esse cliente não pode ser excluirdo, pois está em uso";
+
     private final ClienteRepository repository;
 
     public List<Cliente> listar() {
