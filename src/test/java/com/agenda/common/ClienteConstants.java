@@ -7,7 +7,7 @@ import com.agenda.domain.model.Cliente;
 import java.io.File;
 
 public class ClienteConstants {
-    public static final Cliente CLIENTE = new Cliente("Cliente", "27999999999");
+    public static final Cliente CLIENTE = new Cliente(1L, "Cliente", "27999999999");
     public static final ClienteDTO CLIENTE_DTO = new ClienteDTO(1L, "Cliente", "27999999999");
     public static final ClienteInput CLIENTE_INPUT = new ClienteInput("Cliente", "27999999999");
 

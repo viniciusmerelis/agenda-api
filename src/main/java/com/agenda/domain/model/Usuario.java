@@ -40,10 +40,21 @@ public class Usuario {
     private String senha;
 
     @CreationTimestamp
-    @Column(name = "data_cadastro", nullable = false)
+    @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
 
     @UpdateTimestamp
-    @Column(name = "data_atualizacao", nullable = false)
+    @Column(name = "data_atualizacao")
     private LocalDateTime dataAtualizacao;
+
+    public Usuario(Long id, String nome, String telefone, String email, String senha) {
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.senha = senha;
+    }
+
+    public Usuario() {
+    }
 }

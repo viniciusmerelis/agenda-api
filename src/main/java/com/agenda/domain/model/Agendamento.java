@@ -43,10 +43,19 @@ public class Agendamento {
     private Usuario colaborador;
 
     @CreationTimestamp
-    @Column(name = "data_criacao", nullable = false)
+    @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
 
     @UpdateTimestamp
     @Column(name = "data_atualizacao")
     private LocalDateTime dataAtualizacao;
+
+    public Agendamento(OffsetDateTime horario, Cliente cliente, Usuario colaborador) {
+        this.horario = horario;
+        this.cliente = cliente;
+        this.colaborador = colaborador;
+    }
+
+    public Agendamento() {
+    }
 }
