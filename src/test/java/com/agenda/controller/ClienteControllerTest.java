@@ -3,6 +3,7 @@ package com.agenda.controller;
 import com.agenda.api.controller.ClienteController;
 import com.agenda.api.mapper.ClienteMapper;
 import com.agenda.domain.service.ClienteService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,10 +22,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
+import static com.agenda.common.ClienteConstants.BASE_URI;
 import static com.agenda.common.ClienteConstants.CLIENTE;
 import static com.agenda.common.ClienteConstants.CLIENTE_DTO;
 import static com.agenda.common.ClienteConstants.CLIENTE_INPUT;
-import static com.agenda.common.ClienteConstants.CLIENTE_JSON;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.mockMvc;
 import static org.hamcrest.Matchers.hasSize;
@@ -37,10 +38,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Testcontainers
 public class ClienteControllerTest {
-    private static final String BASE_URI = "/api/clientes";
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
     @MockBean
     private ClienteService service;
     @MockBean
@@ -89,7 +91,7 @@ public class ClienteControllerTest {
     }
 
     @Test
-    void obterCliente_QuandoExistirId_RetornarStatus200() {
+    void consultarCliente_QuandoExistirId_RetornarStatus200() {
         when(service.consultar(1L)).thenReturn(CLIENTE);
         when(mapper.toDto(CLIENTE)).thenReturn(CLIENTE_DTO);
         given()
@@ -103,12 +105,12 @@ public class ClienteControllerTest {
     }
 
     @Test
-    void criarCliente_ComDadosValidos_RetornarStatus201() {
+    void incluirCliente_ComDadosValidos_RetornarStatus201() throws Exception {
         when(mapper.toEntity(CLIENTE_INPUT)).thenReturn(CLIENTE);
         doNothing().when(service).incluir(CLIENTE);
         given()
              .contentType(ContentType.JSON)
-             .body(CLIENTE_JSON)
+             .body(objectMapper.writeValueAsString(CLIENTE_INPUT))
         .when()
              .post(BASE_URI)
         .then()
@@ -116,12 +118,12 @@ public class ClienteControllerTest {
     }
 
     @Test
-    void atualizarCliente_ComDadosValidos_RetornarStatus200() {
+    void atualizarCliente_ComDadosValidos_RetornarStatus200() throws Exception {
         when(mapper.toEntity(CLIENTE_INPUT)).thenReturn(CLIENTE);
         doNothing().when(service).atualizar(1L, CLIENTE);
         given()
              .contentType(ContentType.JSON)
-             .body(CLIENTE_JSON)
+             .body(objectMapper.writeValueAsString(CLIENTE_INPUT))
         .when()
              .put(BASE_URI + "/{id}", 1)
         .then()

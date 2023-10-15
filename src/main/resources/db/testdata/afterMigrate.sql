@@ -12,16 +12,11 @@ ALTER SEQUENCE seq_servico_prestado RESTART;
 ALTER SEQUENCE seq_cliente RESTART;
 ALTER SEQUENCE seq_atendimento RESTART;
 
-INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro, data_atualizacao)
-VALUES (nextval('seq_usuario'), 'Alice', '27994709408', 'alicerita@colab.com.br', '123', '2023-02-10T00:00:00', null);
-INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro, data_atualizacao)
-VALUES (nextval('seq_usuario'), 'Mariana', '27996818863', 'mari.carol@colab.com.br', '123', '2023-02-10T00:00:00', null);
-INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro, data_atualizacao)
-VALUES (nextval('seq_usuario'), 'Nicole', '27937908062', 'nicoleb@colab.com.br', '123', '2023-02-10T00:00:00', null);
-INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro, data_atualizacao)
-VALUES (nextval('seq_usuario'), 'Giovana', '27987787740', 'gio@sec.com', '123', '2023-02-10T00:00:00', null);
-INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro, data_atualizacao)
-VALUES (nextval('seq_usuario'), 'Isabella', '27997383463', 'isabella.adm@gmail.com', '123', '2023-02-10T00:00:00', null);
+INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro) VALUES (nextval('seq_usuario'), 'Alice', '27994709408', 'alicerita@colab.com.br', '123', '2023-02-10T00:00:00');
+INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro) VALUES (nextval('seq_usuario'), 'Mariana', '27996818863', 'mari.carol@colab.com.br', '123', '2023-02-10T00:00:00');
+INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro) VALUES (nextval('seq_usuario'), 'Nicole', '27937908062', 'nicoleb@colab.com.br', '123', '2023-02-10T00:00:00');
+INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro) VALUES (nextval('seq_usuario'), 'Giovana', '27987787740', 'gio@sec.com', '123', '2023-02-10T00:00:00');
+INSERT INTO usuario(id, nome, telefone, email, senha, data_cadastro) VALUES (nextval('seq_usuario'), 'Isabella', '27997383463', 'isabella.adm@gmail.com', '123', '2023-02-10T00:00:00');
 
 INSERT INTO cliente(id, nome, telefone) VALUES (nextval('seq_cliente'), 'Larissa', '27971266910');
 INSERT INTO cliente(id, nome, telefone) VALUES (nextval('seq_cliente'), 'Jaqueline', '27947663161');

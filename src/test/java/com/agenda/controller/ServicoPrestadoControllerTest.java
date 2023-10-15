@@ -13,10 +13,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static com.agenda.common.ServicoPrestadoConstants.BASE_URI;
 import static com.agenda.common.ServicoPrestadoConstants.SERVICO_PRESTADO;
 import static com.agenda.common.ServicoPrestadoConstants.SERVICO_PRESTADO_DTO;
 import static com.agenda.common.ServicoPrestadoConstants.SERVICO_PRESTADO_INPUT;
-import static com.agenda.common.ServicoPrestadoConstants.SERVICO_PRESTADO_JSON;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -24,13 +24,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ServicoPrestadoController.class)
 @AutoConfigureMockMvc(addFilters = false)
 public class ServicoPrestadoControllerTest {
-    private static final String BASE_URI = "/api/servicos-prestados";
 
     @Autowired
     private MockMvc mockMvc;
@@ -52,7 +51,7 @@ public class ServicoPrestadoControllerTest {
     }
 
     @Test
-    void obterServicoPrestado_ComIdExistente_RetornarStatus200() throws Exception {
+    void consultarServicoPrestado_ComIdExistente_RetornarStatus200() throws Exception {
         when(service.consultar(1L)).thenReturn(SERVICO_PRESTADO);
         when(mapper.toDto(SERVICO_PRESTADO)).thenReturn(SERVICO_PRESTADO_DTO);
         mockMvc.perform(get(BASE_URI + "/{id}", 1))
@@ -62,11 +61,11 @@ public class ServicoPrestadoControllerTest {
     }
 
     @Test
-    void criarServicoPrestado_ComDadosValidos_RetornarStatus201() throws Exception {
+    void incluirServicoPrestado_ComDadosValidos_RetornarStatus201() throws Exception {
         when(mapper.toEntity(SERVICO_PRESTADO_INPUT)).thenReturn(SERVICO_PRESTADO);
         doNothing().when(service).incluir(SERVICO_PRESTADO);
         mockMvc.perform(post(BASE_URI)
-             .content(objectMapper.writeValueAsString(SERVICO_PRESTADO_JSON))
+             .content(objectMapper.writeValueAsString(SERVICO_PRESTADO_INPUT))
              .contentType(APPLICATION_JSON))
              .andExpect(status().isCreated());
     }

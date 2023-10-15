@@ -12,9 +12,7 @@ import java.util.Set;
 public class AtendimentoInput {
     @NotNull
     private Long agendamentoId;
-
     @NotNull
     private Long colaboradorId;
-
     private Set<ServicoValorInput> servicosValores = new HashSet<>();
 }

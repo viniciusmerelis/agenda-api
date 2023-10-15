@@ -18,6 +18,5 @@ CREATE TABLE usuario
     email            VARCHAR(255)                          NOT NULL UNIQUE,
     senha            VARCHAR(100)                          NOT NULL,
     data_cadastro    TIMESTAMP,
-    data_atualizacao TIMESTAMP,
     PRIMARY KEY (id)
 );

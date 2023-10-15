@@ -1,4 +1,4 @@
-package com.agenda.controller;
+package com.agenda.service;
 
 import com.agenda.api.model.AgendamentoEvento;
 import com.agenda.common.ClienteConstants;
