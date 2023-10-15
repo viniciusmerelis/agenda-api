@@ -7,8 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -16,6 +18,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cliente {
     @Id
     @SequenceGenerator(name = "seq_cliente", sequenceName = "seq_cliente", allocationSize = 1)
@@ -28,13 +32,4 @@ public class Cliente {
 
     @Column(nullable = false)
     private String telefone;
-
-    public Cliente(String nome, String telefone) {
-        this.nome = nome;
-        this.telefone = telefone;
-    }
-
-    public Cliente() {
-
-    }
 }

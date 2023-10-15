@@ -15,7 +15,7 @@ CREATE TABLE agendamento
     horario                TIMESTAMP                                 NOT NULL,
     cliente_id             BIGINT                                    NOT NULL,
     usuario_colaborador_id BIGINT                                    NOT NULL,
-    data_criacao           TIMESTAMP                                 NOT NULL,
+    data_criacao           TIMESTAMP,
     data_atualizacao       TIMESTAMP,
     PRIMARY KEY (id),
     CONSTRAINT fk_cliente_id FOREIGN KEY (cliente_id) REFERENCES cliente (id),
@@ -30,7 +30,7 @@ CREATE TABLE atendimento
     agendamento_id         BIGINT,
     usuario_colaborador_id BIGINT                                    NOT NULL,
     valor_total            NUMERIC(5, 2)                             NOT NULL,
-    data_criacao           TIMESTAMP                                 NOT NULL,
+    data_criacao           TIMESTAMP,
     PRIMARY KEY (id),
     CONSTRAINT fk_atendimento_usuario_colaborador_id FOREIGN KEY (usuario_colaborador_id) REFERENCES usuario (id),
     CONSTRAINT fk_agendamento_id FOREIGN KEY (agendamento_id) REFERENCES agendamento (id)

@@ -1,21 +1,16 @@
 package com.agenda.api.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClienteDTO {
     private Long id;
     private String nome;
     private String telefone;
-
-    public ClienteDTO(Long id, String nome, String telefone) {
-        this.id = id;
-        this.nome = nome;
-        this.telefone = telefone;
-    }
-
-    public ClienteDTO() {
-    }
 }

@@ -26,22 +26,23 @@ import java.util.List;
 @RequestMapping("/api/agendamentos")
 @RequiredArgsConstructor
 public class AgendamentoController {
+
     private final AgendamentoService service;
     private final AgendamentoMapper mapper;
 
     @GetMapping
     public List<AgendamentoEvento> listarEventoPorColaborador(@RequestParam Long colaboradorId) {
-        return service.listarEventoPorColaborador(colaboradorId);
+        return service.consultarEventoPorColaborador(colaboradorId);
     }
 
     @GetMapping("/{id}")
-    public AgendamentoDTO buscar(@PathVariable Long id) {
+    public AgendamentoDTO consultar(@PathVariable Long id) {
         return mapper.toDto(service.consultar(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AgendamentoDTO salvar(@RequestBody @Valid AgendamentoInput input) {
+    public AgendamentoDTO incluir(@RequestBody @Valid AgendamentoInput input) {
         Agendamento agendamento = service.incluir(mapper.toEntity(input));
         return mapper.toDto(agendamento);
     }

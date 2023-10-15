@@ -27,12 +27,12 @@ public class AgendamentoService {
     private final ClienteService clienteService;
     private final UsuarioService usuarioService;
 
-    public List<AgendamentoEvento> listarEventoPorColaborador(Long colaboradorId) {
-        return agendamentoRepository.listarEventoPorColaborador(colaboradorId);
+    public List<AgendamentoEvento> consultarEventoPorColaborador(Long colaboradorId) {
+        return agendamentoRepository.consultarEventoPorColaborador(colaboradorId);
     }
 
     public Agendamento consultar(Long id) {
-        return agendamentoRepository.buscarPorId(id)
+        return agendamentoRepository.consultar(id)
                 .orElseThrow(() -> new AgendamentoNaoEncontradoException(id));
     }
 

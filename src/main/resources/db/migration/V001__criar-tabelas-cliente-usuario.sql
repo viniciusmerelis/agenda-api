@@ -17,7 +17,6 @@ CREATE TABLE usuario
     telefone         VARCHAR(11)                           NOT NULL UNIQUE,
     email            VARCHAR(255)                          NOT NULL UNIQUE,
     senha            VARCHAR(100)                          NOT NULL,
-    data_cadastro    TIMESTAMP                             NOT NULL,
-    data_atualizacao TIMESTAMP,
+    data_cadastro    TIMESTAMP,
     PRIMARY KEY (id)
 );
