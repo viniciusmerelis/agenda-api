@@ -28,13 +28,13 @@ public class ClienteController {
     private final ClienteMapper mapper;
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAuthority('USER')")
     public List<ClienteDTO> listar() {
         return mapper.toDto(service.listar());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ClienteDTO buscar(@PathVariable Long id) {
         return mapper.toDto(service.consultar(id));
     }
