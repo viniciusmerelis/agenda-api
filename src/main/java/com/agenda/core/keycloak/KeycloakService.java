@@ -1,4 +1,4 @@
-package com.agenda.core.security;
+package com.agenda.core.keycloak;
 
 import org.jboss.resteasy.client.jaxrs.internal.ResteasyClientBuilderImpl;
 import org.keycloak.OAuth2Constants;

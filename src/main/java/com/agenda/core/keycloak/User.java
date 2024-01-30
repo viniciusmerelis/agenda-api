@@ -1,4 +1,4 @@
-package com.agenda.core.security;
+package com.agenda.core.keycloak;
 
 import lombok.Getter;
 import lombok.Setter;

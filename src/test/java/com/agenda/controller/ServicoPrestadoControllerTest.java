@@ -73,7 +73,7 @@ public class ServicoPrestadoControllerTest {
     @Test
     void atualizarServicoPrestado_ComDadosValidos_RetornarStatus200() throws Exception {
         when(mapper.toEntity(SERVICO_PRESTADO_INPUT)).thenReturn(SERVICO_PRESTADO);
-        doNothing().when(service).atualizar(1L, SERVICO_PRESTADO);
+        doNothing().when(service).alterar(1L, SERVICO_PRESTADO);
         mockMvc.perform(put(BASE_URI + "/{id}", 1)
              .content(objectMapper.writeValueAsString(SERVICO_PRESTADO_INPUT))
              .contentType(APPLICATION_JSON))

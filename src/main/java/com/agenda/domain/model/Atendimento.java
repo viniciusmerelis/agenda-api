@@ -52,4 +52,10 @@ public class Atendimento {
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
+
+    public void calcularValorTotal() {
+        valorTotal = getServicosValores().stream()
+             .map(item -> item.getValor())
+             .reduce(BigDecimal.ZERO, (subtotal, element) -> subtotal.add(element));
+    }
 }

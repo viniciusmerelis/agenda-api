@@ -1,4 +1,4 @@
-package com.agenda.core.security;
+package com.agenda.core;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

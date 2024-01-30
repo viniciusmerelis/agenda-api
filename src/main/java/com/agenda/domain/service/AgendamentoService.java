@@ -41,7 +41,7 @@ public class AgendamentoService {
         return agendamentoRepository.save(agendamento);
     }
 
-    public Agendamento atualizar(Long id, Agendamento agendamento) {
+    public Agendamento alterar(Long id, Agendamento agendamento) {
         Agendamento agendamentoAtual = consultar(id);
         atribuirEntidadesRelacionadas(agendamento);
         BeanUtils.copyProperties(agendamento, agendamentoAtual, "id", "dataCriacao");

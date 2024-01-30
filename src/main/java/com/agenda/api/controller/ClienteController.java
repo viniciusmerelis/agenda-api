@@ -47,7 +47,7 @@ public class ClienteController {
 
     @PutMapping("/{id}")
     public void atualizar(@PathVariable Long id, @RequestBody @Valid ClienteInput input) {
-        service.atualizar(id, mapper.toEntity(input));
+        service.alterar(id, mapper.toEntity(input));
     }
 
     @DeleteMapping("/{id}")
