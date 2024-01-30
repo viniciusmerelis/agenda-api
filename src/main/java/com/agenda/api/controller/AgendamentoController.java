@@ -49,7 +49,7 @@ public class AgendamentoController {
 
     @PutMapping("/{id}")
     public AgendamentoDTO atualizar(@PathVariable Long id, @RequestBody @Valid AgendamentoInput input) {
-        Agendamento agendamento = service.atualizar(id, mapper.toEntity(input));
+        Agendamento agendamento = service.alterar(id, mapper.toEntity(input));
         return mapper.toDto(agendamento);
     }
 

@@ -71,7 +71,7 @@ public class AgendamentoControllerTest {
     @Test
     public void atualizarAgendamento_ComDadosValidos_RetornarStatus200() throws Exception {
         when(mapper.toEntity(AGENDAMENTO_INPUT)).thenReturn(AGENDAMENTO);
-        when(service.atualizar(1L, AGENDAMENTO)).thenReturn(AGENDAMENTO);
+        when(service.alterar(1L, AGENDAMENTO)).thenReturn(AGENDAMENTO);
         when(mapper.toDto(AGENDAMENTO)).thenReturn(AGENDAMENTO_DTO);
         mockMvc.perform(put(BASE_URI + "/{id}", 1)
              .content(objectMapper.writeValueAsString(AGENDAMENTO_INPUT))

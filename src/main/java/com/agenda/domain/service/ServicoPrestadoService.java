@@ -30,7 +30,7 @@ public class ServicoPrestadoService {
         repository.save(servicoPrestado);
     }
 
-    public void atualizar(Long id, ServicoPrestado servicoPrestado) {
+    public void alterar(Long id, ServicoPrestado servicoPrestado) {
         ServicoPrestado servicoPrestadoAtual = consultar(id);
         BeanUtils.copyProperties(servicoPrestado, servicoPrestadoAtual, "id");
     }

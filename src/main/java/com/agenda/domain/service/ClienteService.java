@@ -35,7 +35,7 @@ public class ClienteService {
         repository.save(cliente);
     }
 
-    public void atualizar(Long id, Cliente cliente) {
+    public void alterar(Long id, Cliente cliente) {
         Cliente clienteAtual = consultar(id);
         BeanUtils.copyProperties(cliente, clienteAtual, "id");
     }

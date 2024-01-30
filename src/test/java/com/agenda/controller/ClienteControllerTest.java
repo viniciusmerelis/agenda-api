@@ -120,7 +120,7 @@ public class ClienteControllerTest {
     @Test
     void atualizarCliente_ComDadosValidos_RetornarStatus200() throws Exception {
         when(mapper.toEntity(CLIENTE_INPUT)).thenReturn(CLIENTE);
-        doNothing().when(service).atualizar(1L, CLIENTE);
+        doNothing().when(service).alterar(1L, CLIENTE);
         given()
              .contentType(ContentType.JSON)
              .body(objectMapper.writeValueAsString(CLIENTE_INPUT))
